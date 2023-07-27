@@ -9,6 +9,12 @@ body {
   margin: auto;
 }
 
-path:hover {
-  fill: rgb(134, 134, 212);
+
+path, circle  {
+   fill: rgb(231, 231, 231);
+   stroke: rgb(122, 122, 122);
 }
+
+path:hover, circle:hover {
+   fill: rgb(134, 134, 212);
+ }
