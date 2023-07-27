@@ -761,7 +761,9 @@
             name="Zimbabwe" id="zw" />
     </svg>
 
-    <button id="zoom-middle-america">Zoom To Middle America</button>
+    <button id="zoom-world">Zoom To World</button>
+    <button id="zoom-middle-america">Zoom To Central America</button>
+    <button id="zoom-mediterranean">Zoom To Mediterranean</button>
 
     <div>
         Click on
@@ -883,7 +885,34 @@
             // const elCuba = document.querySelector('path[name="Montserrat"]')
             // const bbox = elCuba.getBBox()
             const elMap = document.getElementById('map')
-            elMap.setAttribute('viewBox', `200 370 150 90`)
+            elMap.setAttribute('viewBox', `220 380 90 70`)
+            // hide all circles 
+            for (let i = 0; i < allCircles.length; i++) {
+                const currentCircle = allCircles[i]
+                currentCircle.style.display = 'none'
+            }
+        })
+
+        const elZoomWorld = document.getElementById('zoom-world')
+        elZoomWorld.addEventListener('click', function () {
+            const elMap = document.getElementById('map')
+            elMap.setAttribute('viewBox', `0 0 1010 666`)
+            // show all circles 
+            for (let i = 0; i < allCircles.length; i++) {
+                const currentCircle = allCircles[i]
+                currentCircle.style.display = 'block'
+            }
+        }) 
+        
+        const elZoomMediterranean = document.getElementById('zoom-mediterranean')
+        elZoomMediterranean.addEventListener('click', function () {
+            const elMap = document.getElementById('map')
+            elMap.setAttribute('viewBox', `450 250 200 130`)
+             // show all circles 
+             for (let i = 0; i < allCircles.length; i++) {
+                const currentCircle = allCircles[i]
+                currentCircle.style.display = 'block'
+            }
         })
     </script>
 

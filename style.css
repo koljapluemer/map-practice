@@ -25,6 +25,8 @@ path {
 path:hover,
 .small-country-circle:hover {
   fill: rgb(134, 134, 212);
+  stroke: rgb(71, 71, 134);
+  z-index: 99
 }
 
 .flashing {
