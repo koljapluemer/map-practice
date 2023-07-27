@@ -9,12 +9,36 @@ body {
   margin: auto;
 }
 
-
-path, circle  {
-   fill: rgb(231, 231, 231);
-   stroke: rgb(122, 122, 122);
+path,
+circle {
+  fill: rgb(231, 231, 231);
+  stroke: rgb(122, 122, 122);
 }
 
-path:hover, circle:hover {
-   fill: rgb(134, 134, 212);
- }
+path:hover,
+.small-country-circle:hover {
+  fill: rgb(134, 134, 212);
+}
+
+.flashing {
+  fill: red;
+  animation: flashRed 1s; /* Apply the animation */
+  z-index: 99;
+}
+
+/* Define the @keyframes animation */
+/* add slight scaling up */
+@keyframes flashRed {
+  0%,
+  50% {
+    fill: red; /* Start with red */
+    
+  }
+  100% {
+   fill: orange; /* End with orange */
+  }
+}
+
+.guide-circle {
+  fill: rgba(200, 0, 0, .1)
+}

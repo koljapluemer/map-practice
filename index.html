@@ -778,6 +778,7 @@
         const elChallengeCountry = document.getElementById('challengeCountry')
         const elFeedback = document.getElementById('feedback')
         const allCountries = document.getElementById('map').getElementsByTagName('path');
+        console.log('countries', allCountries);
 
         // for every path, add a <circle> at its center
         for (let i = 0; i < allCountries.length; i++) {
@@ -794,12 +795,13 @@
                 circle.setAttribute('r', '3')
                 // give it same name property as country
                 circle.setAttribute('name', country.getAttribute('name'))
+                circle.classList.add('small-country-circle')
                 // append it to the <svg> element:
                 document.getElementById('map').appendChild(circle);
             }
         }
 
-        console.log('countries', allCountries);
+        const allCircles = document.getElementsByTagName('circle')
 
         // listen to all clicks - if the click is on the svg, display the title of the clicked sub-object
         document.getElementById('map').addEventListener('click', function (e) {
@@ -814,7 +816,7 @@
                 // after 2 seconds, pick new challenge:
                 if (clickedName === targetCountry.getAttribute('name')) {
                     elFeedback.innerHTML = 'Correct!'
-                    targetCountry.style.fill = 'green'
+                    clickedCountry.style.fill = 'green'
                     setTimeout(function () {
                         pickRandomChallenge()
                     }, 2000)
@@ -822,9 +824,37 @@
                     elFeedback.innerHTML = `Incorrect! That's ${clickedName}.`
                     targetCountry.style.fill = 'red'
                     // add .flashing to targetCountry
+                    targetCountry.classList.add('flashing')
+                    // check if the targetCountry is small (a <circle> with name of the country exists)
+                    // if so, temporarily add a bigger circle around it
+                    let targetIsSmall = false
+                    for (let i = 0; i < allCircles.length; i++) {
+                        const currentCircle = allCircles[i]
+                        if (currentCircle.getAttribute('name') == targetCountry.getAttribute('name')) {
+                            targetIsSmall = true
+                            break;
+                        }
+                    }
+                    
+                    if (targetIsSmall) {
+                        console.log('target is small');
+                        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        // set its center to the center of the bounding box:
+                        circle.setAttribute('cx', targetCountry.getBBox().x + targetCountry.getBBox().width / 2);
+                        circle.setAttribute('cy', targetCountry.getBBox().y + targetCountry.getBBox().height / 2);
+                        // set its radius to half the width of the bounding box:
+                        circle.setAttribute('r', '20')
+                        circle.classList.add('guide-circle')
+                        // append it to the <svg> element:
+                        document.getElementById('map').appendChild(circle);
+                        setTimeout(function () {
+                            circle.remove()
+                        }, 2000)
+                    }
                     clickedCountry.style.fill = 'blue'
                     setTimeout(function () {
-                        clickedCountry.style.fill = 'black'
+                        clickedCountry.style.fill = 'rgb(231, 231, 231)'
+                        
                         pickRandomChallenge()
                     }, 2000)
                 }
