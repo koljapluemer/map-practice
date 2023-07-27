@@ -5253,8 +5253,22 @@
     </div>
 
     <script>
+        // extract all <title> contnents from #map
+        let allTitles =  document.getElementById('map').getElementsByTagName('title');
+        console.log('ALL TITLES', allTitles)
+        let names = []
+        for (let i = 0; i < allTitles.length; i++) {
+            names.push(allTitles[i].innerHTML)
+        }
+        // remove 'World Map'
+        names =  names.filter(function (name) {
+            return name !== 'World Map';
+        })
+        console.log('NAMES', names)
+
         // listen to all clicks - if the click is on the svg, display the title of the clicked sub-object
         document.getElementById('map').addEventListener('click', function (e) {
+            let listOfTitles =  document.getElementById('map').getElementsByTagName('title');
             // get the clicked element
             const target = e.target;
             // within target, find <title> and display
@@ -5294,31 +5308,35 @@
             } else {
                 // wrong
                 console.log('WRONG')
+                // in allTitles, find the one matching currentChallenge!!
+                // color its parent red
+                let correctTitle = {}
+                for (let i = 0; i < allTitles.length; i++) {
+                    const title = allTitles[i];
+                    // console.log('title', title)
+                    if (title.innerHTML === currentChallenge) {
+                        correctTitle = title;
+                    }
+                }
+                console.log('correct Title: ', correctTitle)
+                const correctCountry = correctTitle.parentNode;
+                console.log('correct Country: ', correctCountry)
+                correctCountry.style.fill = 'red';
                 // color the clicked country blue
-                // target.style.fill = 'red';
+                target.style.fill = 'blue';
                 // set #feedback to 'You clicked $title instead of $currentChallenge'
                 document.getElementById('feedback').innerHTML = 'You clicked ' + title.innerHTML + ' instead of ' + currentChallenge;
                 // wait 2 seconds, and set a new challenge:
                 setTimeout(function () {
                     setRandomChallenge();
+                    target.style.fill = '#c0c0c0';
                     document.getElementById('feedback').innerHTML = '';
                 }, 2000);
             }
 
         });
 
-        // extract all <title> contnents from #map
-        let allTitles =  document.getElementById('map').getElementsByTagName('title');
-        console.log('ALL TITLES', allTitles)
-        let names = []
-        for (let i = 0; i < allTitles.length; i++) {
-            names.push(allTitles[i].innerHTML)
-        }
-        // remove 'World Map'
-        names =  names.filter(function (name) {
-            return name !== 'World Map';
-        })
-        console.log('NAMES', names)
+
 
         let currentChallenge = ''
         function setRandomChallenge() {
