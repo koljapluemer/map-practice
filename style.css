@@ -11,8 +11,15 @@ body {
 
 path,
 circle {
-  fill: rgb(231, 231, 231);
   stroke: rgb(122, 122, 122);
+}
+
+path {
+  fill: rgb(231, 231, 231);
+}
+
+.small-country-circle {
+  fill: rgba(231, 231, 231, .2);
 }
 
 path:hover,

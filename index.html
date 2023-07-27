@@ -761,6 +761,8 @@
             name="Zimbabwe" id="zw" />
     </svg>
 
+    <button id="zoom-middle-america">Zoom To Middle America</button>
+
     <div>
         Click on
         <span id="challengeCountry">
@@ -792,7 +794,9 @@
                 circle.setAttribute('cx', bbox.x + bbox.width / 2);
                 circle.setAttribute('cy', bbox.y + bbox.height / 2);
                 // set its radius to half the width of the bounding box:
-                circle.setAttribute('r', '3')
+                circle.setAttribute('r', '2')
+                // set stroke width to 1
+                circle.setAttribute('stroke-width', '1')
                 // give it same name property as country
                 circle.setAttribute('name', country.getAttribute('name'))
                 circle.classList.add('small-country-circle')
@@ -835,7 +839,7 @@
                             break;
                         }
                     }
-                    
+
                     if (targetIsSmall) {
                         console.log('target is small');
                         const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -854,7 +858,7 @@
                     clickedCountry.style.fill = 'blue'
                     setTimeout(function () {
                         clickedCountry.style.fill = 'rgb(231, 231, 231)'
-                        
+
                         pickRandomChallenge()
                     }, 2000)
                 }
@@ -871,6 +875,16 @@
         }
 
         pickRandomChallenge()
+
+
+        const elZoomMiddleAmerica = document.getElementById('zoom-middle-america')
+        // implement zooming the svg around Element with name `Cuba`
+        elZoomMiddleAmerica.addEventListener('click', function () {
+            // const elCuba = document.querySelector('path[name="Montserrat"]')
+            // const bbox = elCuba.getBBox()
+            const elMap = document.getElementById('map')
+            elMap.setAttribute('viewBox', `200 370 150 90`)
+        })
     </script>
 
 </body>
