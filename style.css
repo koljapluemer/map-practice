@@ -24,6 +24,8 @@ html {
 path,
 circle {
   stroke: rgb(122, 122, 122);
+  cursor: crosshair;
+
 }
 
 path {
