@@ -800,7 +800,7 @@
                 streak: <div id="stats-global-streak"></div>
             </li>
             <li>
-                accuracy: <div id="stats-accuracy"></div>
+                accuracy: <div id="stats-accuracy"></div> %
             </li>
             <li>
                 due: <span id="stats-due"></span>
@@ -841,6 +841,8 @@
         let localStorageDataExists = false
         // define stats data
         let statsGlobalStreak = 0;
+        let correctGuesses = 0;
+        let incorrectGuesses = 0;
         // define stats elements
         const elStatsGlobalStreak = document.getElementById('stats-global-streak')
         const elStatsAccuracy = document.getElementById('stats-accuracy')
@@ -944,15 +946,25 @@
                             matchingCircles[0].classList.add('previouslyIncorrect')
                         }
                     }
+
+                    // add the nr of incorrect and correct repetitions to stat variables
+                    correctGuesses += countryObject.repetitions.filter(function (repetition) {
+                        return repetition.grade == 1
+                    }).length
+                    incorrectGuesses += countryObject.repetitions.filter(function (repetition) {
+                        return repetition.grade == 0
+                    }).length
                     
                 }
             }
         }
+        calculateAccuracy()
 
 
 
         // listen to all clicks - if the click is on the svg, display the title of the clicked sub-object
         document.getElementById('map').addEventListener('click', function (e) {
+            calculateAccuracy()
             // if we're not currently awaiting a click, return instantly
             if (elFeedback.innerHTML != 'Waiting for click...') {
                 console.log('aborting..')
@@ -981,6 +993,7 @@
                 // if correct, double interval, if incorrect, half it (minimum 10)
                 if (guessedRight) {
                     statsGlobalStreak += 1;
+                    correctGuesses  += 1;
                     elStatsGlobalStreak.innerHTML = statsGlobalStreak
                     
                     // get the streak: how many of the last repetitions are all correct, uniterrupted?
@@ -1002,6 +1015,7 @@
                     }
                 } else {
                     statsGlobalStreak = 0;
+                    incorrectGuesses += 1;
                     elStatsGlobalStreak.innerHTML = statsGlobalStreak
                     targetCountryObject.interval /= 2
                     if (targetCountryObject.interval < 10) {
@@ -1171,6 +1185,12 @@
                 currentCircle.style.display = 'block'
             }
         })
+
+        function calculateAccuracy() {
+               // calculate accuracy out of number of correct and incorrect guesses, round to two after decimal
+               const accuracy = Math.round(correctGuesses / (correctGuesses + incorrectGuesses) * 10000) / 100
+            elStatsAccuracy.innerHTML = accuracy;
+        }
     </script>
 
 </body>
