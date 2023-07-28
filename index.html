@@ -848,6 +848,8 @@
         let statsTimeOfLastReveal = null;
         let statsThinkingTimes = []
         let statsAverageThinkingTime = 0;
+        let countriesNrOfFailuresDict = {};
+        let confusionDict = {};
         // see if we have the nr of training units last session in localstorage
         let statsTrainingUnitsLastSession = localStorage.getItem('statsTrainingUnitsThisSession') ? localStorage.getItem('statsTrainingUnitsThisSession') : 'N/A'
         // define stats elements
@@ -962,10 +964,37 @@
                         return repetition.grade == 0
                     }).length
 
+                    // add relevant data to countriesNrOfFailuresDict
+                    //  should look like {'Burundi': 3, 'Germany': 2}:
+                    if (countryObject.repetitions.filter(function (repetition) {
+                            return repetition.grade == 0
+                        }).length > 0) {
+                        countriesNrOfFailuresDict[countryObject.name] = countryObject.repetitions.filter(function (repetition) {
+                            return repetition.grade == 0
+                        }).length
+                    }
+                    // add relevant data to confusion dict
+                    // should look like {'Germany-Burundi': 2, 'Germany-Frane': 1}
+                    for (let i = 0; i < countryObject.repetitions.length; i++) {
+                        const repetition = countryObject.repetitions[i];
+                        if (repetition.grade == 0) {
+                            const confusionKey = countryObject.name + '-' + repetition.mixedUpWith
+                            if (confusionDict[confusionKey]) {
+                                confusionDict[confusionKey] += 1
+                            } else {
+                                confusionDict[confusionKey] = 1
+                            }
+                        }
+                    }
+
+                    renderFailureAndConfusion() 
+
                     statsTrainingUnits += countryObject.repetitions.length
                 }
             }
         }
+
+        console.log('Confusion Dict', confusionDict)
         calculateAccuracy()
         elStatsUnits.innerHTML = statsTrainingUnits
         elStatsUnitsLastSession.innerHTML = statsTrainingUnitsLastSession
@@ -1033,6 +1062,14 @@
                         targetCountryObject.interval = 120
                     }
                 } else {
+                    // set country value for countriesNrOfFailuresDict +1 or to 1 if key doesn't exist
+                    countriesNrOfFailuresDict[targetCountryObject.name] = countriesNrOfFailuresDict[targetCountryObject.name] ? countriesNrOfFailuresDict[targetCountryObject.name] + 1 : 1
+                    // same for confusion dict
+                    const confusionKey = targetCountryObject.name + '-' + clickedName
+                    confusionDict[confusionKey] = confusionDict[confusionKey] ? confusionDict[confusionKey] + 1 : 1
+                    console.log('new change in failure dict', countriesNrOfFailuresDict)
+                    console.log('new change in confusion dict', confusionDict)
+                    renderFailureAndConfusion() 
                     statsGlobalStreak = 0;
                     incorrectGuesses += 1;
                     elStatsGlobalStreak.innerHTML = statsGlobalStreak
@@ -1220,6 +1257,32 @@
             localStorage.setItem('statsTrainingUnitsThisSession', statsTrainingUnitsThisSession)
             elStatsUnits.innerHTML = statsTrainingUnits
             elStatsUnitsThisSession.innerHTML = statsTrainingUnitsThisSession
+        }
+
+        
+        function renderFailureAndConfusion() {
+            // find the most commonly incorrectly guessed country from  countriesNrOfFailuresDict- has to be more than 3 wrong
+            let mostCommonlyIncorrectlyGuessedCountry = null
+            let mostCommonlyIncorrectlyGuessedCountryNrOfFailures = 0
+            for (const [key, value] of Object.entries(countriesNrOfFailuresDict)) {
+                if (value > mostCommonlyIncorrectlyGuessedCountryNrOfFailures && value > 3) {
+                    mostCommonlyIncorrectlyGuessedCountry = key
+                    mostCommonlyIncorrectlyGuessedCountryNrOfFailures = value
+                }
+            }
+            elStatsHardestCountry.innerHTML = mostCommonlyIncorrectlyGuessedCountry
+
+            // find the most common confusion from confusionDict
+            let mostCommonConfusion = null
+            let mostCommonConfusionNrOfConfusions = 0
+            for (const [key, value] of Object.entries(confusionDict)) {
+                if (value > mostCommonConfusionNrOfConfusions) {
+                    mostCommonConfusion = key
+                    mostCommonConfusionNrOfConfusions = value
+                }
+            }
+            elStatsMostConfused.innerHTML = mostCommonConfusion
+           
         }
 
     </script>
