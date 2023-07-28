@@ -791,6 +791,14 @@
         <div id="feedback">...</div>
     </div>
 
+    <div id="stats">
+        <ul>
+            <li>
+                due: <span id="due">?</span> countries
+            </li>
+        </ul>
+    </div>
+
 
     <script>
         // get names by getting the name property of every path in #math
@@ -800,7 +808,9 @@
         const elMap = document.getElementById('map')
         const elGradeLED = document.getElementById('gradeLED')
         const allCountries = document.getElementById('map').getElementsByTagName('path');
+        const elDue = document.getElementById('due')
         console.log('countries', allCountries);
+        countries = []
 
         // for every path, add a <circle> at its center
         for (let i = 0; i < allCountries.length; i++) {
@@ -823,6 +833,14 @@
                 // append it to the <svg> element:
                 document.getElementById('map').appendChild(circle);
             }
+            // add SR-data attributes:
+            countries.push({
+                name: country.getAttribute('name'),
+                path: country,
+                interval: 10,
+                dueAt: null,
+                repetitions: []
+            })
         }
 
         const allCircles = document.getElementsByTagName('circle')
@@ -838,12 +856,23 @@
             const clickedCountry = e.target;
             const clickedName = clickedCountry.getAttribute('name');
             if (clickedName) {
+                let guessedRight = false;
+                if (clickedName === targetCountry.getAttribute('name')) {
+                    guessedRight = true
+                }
+                // handle SR 
+                // find the country in the countries array
+                targetCountryObject = countries.find(function (country) {
+                    return country.name == targetCountry.getAttribute('name')
+                })
+                targetCountryObject.dueAt = new Date(new Date().getTime() + targetCountryObject.interval * 1000)
+                
                 // check if correct
                 // give feedback accordingly
                 // if correct ,set country green
                 // if incorrect, set targetCountry red and clickedCountry blue
                 // after 2 seconds, pick new challenge:
-                if (clickedName === targetCountry.getAttribute('name')) {
+                if (guessedRight) {
                     elFeedback.innerHTML = 'Correct!'
                     elGradeLED.style.backgroundColor = '#6bb66b'
                     // remove and add .correct class
@@ -902,7 +931,12 @@
             zoomToWorld();
             elFeedback.innerHTML = 'Waiting for click...'
             elGradeLED.style.backgroundColor = '#e0e0e0'
-            targetCountry = allCountries[Math.floor(Math.random() * allCountries.length)];
+            // pick from countries array, where dueAt is in the past or null
+            dueCountries = countries.filter(function (country) {
+                return country.dueAt == null || country.dueAt < Date.now()
+            })
+            elDue.innerHTML = dueCountries.length
+            targetCountry = dueCountries[Math.floor(Math.random() * dueCountries.length)].path
             elChallengeCountry.innerHTML = targetCountry.getAttribute('name')
         }
 
