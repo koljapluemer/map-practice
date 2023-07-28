@@ -164,7 +164,8 @@ button:hover {
   min-width: 20px;
   width: 20px;
   background: #e0e0e0;
-  box-shadow: inset 5px 5px 10px rgba(56, 56, 56, 0.4), inset -5px -5px 10px rgba(255, 255, 255, 0.4);
+  box-shadow: inset 5px 5px 10px rgba(56, 56, 56, 0.4),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.4);
 }
 
 #feedback {
@@ -173,10 +174,49 @@ button:hover {
 
 .previouslyCorrect {
   /* fill: rgb(187, 250, 187); */
-  fill: rgb(86, 177, 86, .2);
+  fill: rgb(86, 177, 86, 0.2);
 }
 
 .previouslyIncorrect {
   /* fill: rgb(255, 198, 160); */
-  fill: rgb(187, 6, 6, .2)
+  fill: rgb(187, 6, 6, 0.2);
+}
+
+.gauge {
+  border-radius: 20px;
+  background: #e0e0e0;
+  box-shadow: inset 6px 6px 7px #bebebe, inset -6px -6px 7px #ffffff;
+  padding: 12px 20px;
+  font-family: "Martian Mono", monospace;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.label {
+  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  box-shadow: 2px 2px 2px #bebebe, -2px -2px 2px #ffffff;
+  padding: 6px;
+}
+
+.gauge-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 20px 0;
+  flex-direction: column;
+}
+
+.progress-bar-iterator {
+  box-shadow: inset 1px 1px 1px #bebebe, inset -1px -1px 1px #ffffff;
+  min-height: 20px;
+  height: 20px;
+  min-width: 3px;
+  width: 3px;
+  background: #56b156;
+
+}
+
+#stats-global-streak {
+  display: flex;
+  flex-wrap: nowrap;
 }
