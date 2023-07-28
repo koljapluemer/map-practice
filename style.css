@@ -207,7 +207,7 @@ button:hover {
 }
 
 .progress-bar-iterator {
-  box-shadow: inset 1px 1px 1px #bebebe, inset -1px -1px 1px #ffffff;
+  box-shadow: inset 2px 2px 2px #bebebe, inset -2px -2px 2px #ffffff;
   min-height: 20px;
   height: 20px;
   min-width: 3px;
@@ -219,4 +219,10 @@ button:hover {
 #stats-global-streak {
   display: flex;
   flex-wrap: nowrap;
+}
+
+#stats-due {
+  height: 10px;
+  min-width: 400px;
+  box-shadow: 2px 2px 2px #bebebe, -2px -2px 2px #ffffff;
 }

@@ -809,8 +809,8 @@
         </div>
 
         <div class="gauge-wrapper">
-            <div class="label">due</div>
-            <div id="stats-due"></div>
+            <div class="label">countries learned</div>
+            <progress id="stats-due" max="255" value="0"></progress>
         </div>
 
         <div class="gauge-wrapper">
@@ -870,7 +870,7 @@
             // define stats elements
             const elStatsGlobalStreak = document.getElementById('stats-global-streak')
             const elStatsAccuracy = document.getElementById('stats-accuracy')
-            const statsDue = document.getElementById('stats-due')
+            const elStatsDue = document.getElementById('stats-due')
             const elStatsUnits = document.getElementById('stats-units')
             const elStatsUnitsThisSession = document.getElementById('stats-units-this-session')
             const elStatsUnitsLastSession = document.getElementById('stats-units-last-session')
@@ -1186,9 +1186,12 @@
                     })
                 }
 
-                statsDue.innerHTML = countries.filter(function (country) {
+                const countriesDue = countries.filter(function (country) {
                     return country.dueAt == null || country.dueAt < new Date()
                 }).length
+                // set value property of elStatsDue progress to 255-due:
+                elStatsDue.value = 255 - countriesDue
+
                 targetCountry = dueCountries[Math.floor(Math.random() * dueCountries.length)].path
                 elChallengeCountry.innerHTML = targetCountry.getAttribute('name')
 
