@@ -157,6 +157,23 @@ button:hover {
   flex-direction: column;
 }
 
+#zoom-level-buttons {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  flex-direction: column;
+}
+
+#zoom-in, #zoom-out {
+  display: grid;
+  place-items: center;
+}
+
+#zoom-level-buttons path:hover {
+  fill: inherit !important;
+  stroke: inherit !important;
+}
+
 .led {
   border-radius: 50%;
   min-height: 20px;

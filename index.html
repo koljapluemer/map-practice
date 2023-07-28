@@ -789,6 +789,27 @@
             <button id="zoom-sea">SEA</button>
             <button id="zoom-oceania">Oceania</button>
         </div>
+
+        <div id="zoom-level-buttons" class="flex justify-center gap">
+            <button id="zoom-in">
+
+                <svg aria-hidden="true" class="icon" fill="none" stroke="currentColor" stroke-width="1.5"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <button id="zoom-out">
+                <svg aria-hidden="true" class="icon" fill="none" stroke="currentColor" stroke-width="1.5"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM13.5 10.5h-6"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+        </div>
+
     </div>
     <div id="feedback-wrapper" class="flex gap mv2 flex-items-center">
         <div class="led" id="gradeLED"></div>
@@ -1536,6 +1557,28 @@
             // Attach the drag event handler to the SVG map element
             elMap.addEventListener('mousedown', handleDragStart);
         });
+
+        // add viewport zoom to #zoom-out and #zoom-in:
+        const elZoomOut = document.getElementById('zoom-out')
+        elZoomOut.addEventListener('click', function () {
+            const viewBox = elMap.getAttribute('viewBox').split(' ');
+            const viewBoxX = parseFloat(viewBox[0]);
+            const viewBoxY = parseFloat(viewBox[1]);
+            const viewBoxWidth = parseFloat(viewBox[2]);
+            const viewBoxHeight = parseFloat(viewBox[3]);
+            elMap.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth * 1.1} ${viewBoxHeight * 1.1}`);
+        })
+
+        const elZoomIn = document.getElementById('zoom-in')
+        elZoomIn.addEventListener('click', function () {
+            const viewBox = elMap.getAttribute('viewBox').split(' ');
+            const viewBoxX = parseFloat(viewBox[0]);
+            const viewBoxY = parseFloat(viewBox[1]);
+            const viewBoxWidth = parseFloat(viewBox[2]);
+            const viewBoxHeight = parseFloat(viewBox[3]);
+            elMap.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth * 0.9} ${viewBoxHeight * 0.9}`);
+        })
+
 
     </script>
 
