@@ -1488,6 +1488,55 @@
             }
         }
 
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Variables to store the initial mouse position and viewBox values
+            let mouseX, mouseY, viewBoxX, viewBoxY, viewBoxWidth, viewBoxHeight;
+
+            // Function to handle the start of dragging
+            function handleDragStart(event) {
+                // Store the initial mouse position and current viewBox values
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+                const viewBox = elMap.getAttribute('viewBox').split(' ');
+                viewBoxX = parseFloat(viewBox[0]);
+                viewBoxY = parseFloat(viewBox[1]);
+                viewBoxWidth = parseFloat(viewBox[2]);
+                viewBoxHeight = parseFloat(viewBox[3]);
+
+                // Attach the drag event handlers to the document
+                document.addEventListener('mousemove', handleDrag);
+                document.addEventListener('mouseup', handleDragEnd);
+            }
+
+            // Function to handle the dragging
+            function handleDrag(event) {
+                // Calculate the distance moved by the mouse
+                const deltaX = event.clientX - mouseX;
+                const deltaY = event.clientY - mouseY;
+
+                // Update the viewBox based on the distance moved
+                const newViewBoxX = viewBoxX - deltaX;
+                const newViewBoxY = viewBoxY - deltaY;
+
+                // Preserve the existing viewBox width and height
+                const newViewBoxWidth = viewBoxWidth;
+                const newViewBoxHeight = viewBoxHeight;
+
+                elMap.setAttribute('viewBox', `${newViewBoxX} ${newViewBoxY} ${newViewBoxWidth} ${newViewBoxHeight}`);
+            }
+
+            // Function to handle the end of dragging
+            function handleDragEnd() {
+                // Remove the drag event handlers from the document
+                document.removeEventListener('mousemove', handleDrag);
+                document.removeEventListener('mouseup', handleDragEnd);
+            }
+
+            // Attach the drag event handler to the SVG map element
+            elMap.addEventListener('mousedown', handleDragStart);
+        });
+
     </script>
 
 </body>
