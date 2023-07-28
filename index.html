@@ -828,7 +828,12 @@
             const country = allCountries[i];
             // get the bounding box of the path:
             const bbox = country.getBBox();
-            const manualSmallCountries = ['Federated States of Micronesia', 'French Polynesia', 'Saint Helena']
+            const manualSmallCountries = [
+                'Federated States of Micronesia',
+                'French Polynesia', 
+                'Saint Helena', 
+                'Marshall Islands'
+            ]
             const excludeCountries = [
                 'Burundi',
                 'Albania',
@@ -876,6 +881,10 @@
                     return countryObject.name == country.getAttribute('name')
                 })
                 countryObject.path = country
+                // create proper date object from dueAt string
+                if (countryObject.dueAt) {
+                    countryObject.dueAt = new Date(countryObject.dueAt)
+                }
             }
         }
 
@@ -1011,7 +1020,10 @@
             if (Math.random() < 0.8) {
                 console.log('going for old learning item first')
                 dueCountries = countries.filter(function (country) {
-                    return country.dueAt < new Date() && country.dueAt != null
+                    if (country.dueAt == null) {
+                        return false;
+                    }
+                    return country.dueAt.getTime() < new Date()
                 })
                 console.log('old learning items that are due:', dueCountries)
             }
@@ -1024,8 +1036,8 @@
             }
 
             elDue.innerHTML = countries.filter(function (country) {
-                    return country.dueAt == null || country.dueAt < new Date()
-                }).length
+                return country.dueAt == null || country.dueAt < new Date()
+            }).length
             targetCountry = dueCountries[Math.floor(Math.random() * dueCountries.length)].path
             elChallengeCountry.innerHTML = targetCountry.getAttribute('name')
         }
@@ -1053,7 +1065,7 @@
 
         const elZoomMediterranean = document.getElementById('zoom-mediterranean')
         elZoomMediterranean.addEventListener('click', function () {
-            elMap.setAttribute('viewBox', `450 250 200 130`)
+            elMap.setAttribute('viewBox', `450 265 200 130`)
             // show all circles 
             for (let i = 0; i < allCircles.length; i++) {
                 const currentCircle = allCircles[i]
