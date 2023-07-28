@@ -868,7 +868,8 @@
 
                 targetCountryObject.repetitions.push({
                     grade: guessedRight ? 1 : 0,
-                    date: new Date()
+                    date: new Date(),
+                    mixedUpWith: guessedRight ? null : clickedName
                 })
 
                 // if correct, double interval, if incorrect, half it (minimum 10)
@@ -885,11 +886,18 @@
                     }
                     console.log('streak:', streak)
 
-                    targetCountryObject.interval *= 2 * streak
+                    targetCountryObject.interval *= Math.pow(2, streak)
+                    // special case when the country is new: set the interval to two minutes immediately
+                    if (targetCountryObject.repetitions.length == 1) {
+                        targetCountryObject.interval = 120
+                    }
                 } else {
                     targetCountryObject.interval /= 2
                     if (targetCountryObject.interval < 10) {
                         targetCountryObject.interval = 10
+                    }
+                    if (targetCountryObject.interval > 100) {
+                        targetCountryObject.interval = 100
                     }
                 }
                 targetCountryObject.dueAt = new Date(new Date().getTime() + targetCountryObject.interval * 1000)
