@@ -812,13 +812,22 @@
         const elDue = document.getElementById('due')
         console.log('countries', allCountries);
         countries = []
+        let localStorageDataExists = false
+        // load countries from localStorage (if it exists)
+        if (localStorage.getItem('countries')) {
+            countries = JSON.parse(localStorage.getItem('countries'))
+            localStorageDataExists = true
+        }
+
+        console.log('countries after load from local', countries)
 
         // for every path, add a <circle> at its center
         for (let i = 0; i < allCountries.length; i++) {
             const country = allCountries[i];
             // get the bounding box of the path:
             const bbox = country.getBBox();
-            if (bbox.width < 10 || bbox.height < 10 || country.getAttribute('name') == 'Federated States of Micronesia') {
+            const manualSmallCountres = ['Federated States of Micronesia', 'French Polynesia', 'Saint Helena']
+            if (bbox.width < 10 || bbox.height < 10 || manualSmallCountres.includes(country.getAttribute('name'))) {
                 // create a <circle> element:
                 const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                 // set its center to the center of the bounding box:
@@ -834,15 +843,24 @@
                 // append it to the <svg> element:
                 document.getElementById('map').appendChild(circle);
             }
-            // add SR-data attributes:
-            countries.push({
-                name: country.getAttribute('name'),
-                path: country,
-                interval: 10,
-                dueAt: null,
-                repetitions: []
-            })
+            // if we have not loaded data
+            if (!localStorageDataExists) {
+                countries.push({
+                    name: country.getAttribute('name'),
+                    path: country,
+                    interval: 10,
+                    dueAt: null,
+                    repetitions: []
+                })
+            } else {
+                // if we have loaded data, find the country in the countries array and set its path property
+                const countryObject = countries.find(function (countryObject) {
+                    return countryObject.name == country.getAttribute('name')
+                })
+                countryObject.path = country
+            }
         }
+
 
         const allCircles = document.getElementsByTagName('circle')
 
@@ -905,6 +923,8 @@
 
 
                 console.log('obj now', targetCountryObject);
+                // save obj to localStorage
+                localStorage.setItem('countries', JSON.stringify(countries))
 
                 // check if correct
                 // give feedback accordingly
