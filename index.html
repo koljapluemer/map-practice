@@ -829,6 +829,11 @@
 
         // listen to all clicks - if the click is on the svg, display the title of the clicked sub-object
         document.getElementById('map').addEventListener('click', function (e) {
+            // if we're not currently awaiting a click, return instantly
+            if (elFeedback.innerHTML != 'Waiting for click...') {
+                console.log('aborting..')
+                return;
+            }
             // find the path that was clicked on, and log its html 'name' property:
             const clickedCountry = e.target;
             const clickedName = clickedCountry.getAttribute('name');
