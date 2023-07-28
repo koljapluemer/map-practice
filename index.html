@@ -843,6 +843,10 @@
         let statsGlobalStreak = 0;
         let correctGuesses = 0;
         let incorrectGuesses = 0;
+        let statsTrainingUnits = 0;
+        let statsTrainingUnitsThisSession = 0;
+        // see if we have the nr of training units last session in localstorage
+        let statsTrainingUnitsLastSession = localStorage.getItem('statsTrainingUnitsThisSession') ? localStorage.getItem('statsTrainingUnitsThisSession') : 'N/A'
         // define stats elements
         const elStatsGlobalStreak = document.getElementById('stats-global-streak')
         const elStatsAccuracy = document.getElementById('stats-accuracy')
@@ -869,8 +873,8 @@
             const bbox = country.getBBox();
             const manualSmallCountries = [
                 'Federated States of Micronesia',
-                'French Polynesia', 
-                'Saint Helena', 
+                'French Polynesia',
+                'Saint Helena',
                 'Marshall Islands',
             ]
             const excludeCountries = [
@@ -954,17 +958,19 @@
                     incorrectGuesses += countryObject.repetitions.filter(function (repetition) {
                         return repetition.grade == 0
                     }).length
-                    
+
+                    statsTrainingUnits += countryObject.repetitions.length
                 }
             }
         }
         calculateAccuracy()
-
-
+        elStatsUnits.innerHTML = statsTrainingUnits
+        elStatsUnitsLastSession.innerHTML = statsTrainingUnitsLastSession
 
         // listen to all clicks - if the click is on the svg, display the title of the clicked sub-object
         document.getElementById('map').addEventListener('click', function (e) {
             calculateAccuracy()
+            iterateTrainingUnitCounter()
             // if we're not currently awaiting a click, return instantly
             if (elFeedback.innerHTML != 'Waiting for click...') {
                 console.log('aborting..')
@@ -993,9 +999,9 @@
                 // if correct, double interval, if incorrect, half it (minimum 10)
                 if (guessedRight) {
                     statsGlobalStreak += 1;
-                    correctGuesses  += 1;
+                    correctGuesses += 1;
                     elStatsGlobalStreak.innerHTML = statsGlobalStreak
-                    
+
                     // get the streak: how many of the last repetitions are all correct, uniterrupted?
                     let streak = 0
                     for (let i = targetCountryObject.repetitions.length - 1; i >= 0; i--) {
@@ -1187,10 +1193,20 @@
         })
 
         function calculateAccuracy() {
-               // calculate accuracy out of number of correct and incorrect guesses, round to two after decimal
-               const accuracy = Math.round(correctGuesses / (correctGuesses + incorrectGuesses) * 10000) / 100
+            // calculate accuracy out of number of correct and incorrect guesses, round to two after decimal
+            const accuracy = Math.round(correctGuesses / (correctGuesses + incorrectGuesses) * 10000) / 100
             elStatsAccuracy.innerHTML = accuracy;
         }
+
+        function iterateTrainingUnitCounter() {
+            statsTrainingUnits += 1
+            statsTrainingUnitsThisSession += 1
+            // save to localstorage
+            localStorage.setItem('statsTrainingUnitsThisSession', statsTrainingUnitsThisSession)
+            elStatsUnits.innerHTML = statsTrainingUnits
+            elStatsUnitsThisSession.innerHTML = statsTrainingUnitsThisSession
+        }
+
     </script>
 
 </body>
