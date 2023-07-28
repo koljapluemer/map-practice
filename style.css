@@ -204,6 +204,9 @@ button:hover {
   gap: 8px;
   margin: 20px 0;
   flex-direction: column;
+  background: #e0e0e0;
+  box-shadow: inset 2px 2px 2px #bebebe, inset -2px -2px 2px #ffffff;
+  padding: 8px;
 }
 
 .progress-bar-iterator {
@@ -213,7 +216,6 @@ button:hover {
   min-width: 3px;
   width: 3px;
   background: #56b156;
-
 }
 
 #stats-global-streak {
@@ -223,6 +225,57 @@ button:hover {
 
 #stats-due {
   height: 10px;
-  min-width: 400px;
+  width: 100%;
   box-shadow: 2px 2px 2px #bebebe, -2px -2px 2px #ffffff;
+}
+
+#stats {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "a a a a a a"
+    "b b b c c c"
+    "d d d d d d"
+    "e e f f g g"
+    "h h h i i i";
+  max-width: 95vw;
+  margin: 0 auto;
+  gap: 8px;
+}
+
+#streak-wrapper {
+  grid-area: a;
+}
+
+#due-wrapper {
+  grid-area: d;
+}
+
+#accuracy-wrapper {
+  grid-area: b;
+}
+
+#units-wrapper {
+  grid-area: c;
+}
+
+#units-this-session-wrapper {
+  grid-area: e;
+}
+
+#units-last-session-wrapper {
+  grid-area: f;
+}
+
+#thinking-time-wrapper {
+  grid-area: g;
+}
+
+#hardest-country-wrapper {
+  grid-area: h;
+}
+
+#most-confused-wrapper {
+  grid-area: i;
 }
