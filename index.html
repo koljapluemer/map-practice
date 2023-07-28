@@ -885,6 +885,17 @@
                 if (countryObject.dueAt) {
                     countryObject.dueAt = new Date(countryObject.dueAt)
                 }
+
+                // if the last repetition on the country has a grade of 1, color a light green, if its 0, color a light red
+                if (countryObject.repetitions.length > 0) {
+                    console.log('object has repetitions')
+                    const lastRepetition = countryObject.repetitions[countryObject.repetitions.length - 1]
+                    if (lastRepetition.grade == 1) {
+                        countryObject.path.classList.add('previouslyCorrect')
+                    } else {
+                        countryObject.path.classList.add('previouslyIncorrect')
+                    }
+                }
             }
         }
 
@@ -975,14 +986,15 @@
                     elGradeLED.style.backgroundColor = '#b66b6b'
                     targetCountry.classList.remove('incorrect', 'correct')
                     targetCountry.classList.add('incorrect')
-                    // check if the targetCountry is small (a <circle> with name of the country exists)
-                    // if so, temporarily add a bigger circle around it
+                    // check if the targetCountry is somewhat small: if ((bbox.width < 20 || bbox.height < 20
                     let targetIsSmall = false
-                    for (let i = 0; i < allCircles.length; i++) {
-                        const currentCircle = allCircles[i]
-                        if (currentCircle.getAttribute('name') == targetCountry.getAttribute('name')) {
-                            targetIsSmall = true
-                            break;
+                    for (let i = 0; i < allCountries.length; i++) {
+                        const country = allCountries[i];
+                        if (country.getAttribute('name') == targetCountry.getAttribute('name')) {
+                            const bbox = country.getBBox()
+                            if (bbox.width < 50 || bbox.height < 50) {
+                                targetIsSmall = true
+                            }
                         }
                     }
 

@@ -116,7 +116,8 @@ button:hover {
 
 /* CSS class .correct with animation */
 .correct {
-  fill: #064d06; /* Dark green color (adjust hex code as needed) */
+  fill: #56b156; /* Dark green color (adjust hex code as needed) */
+  stroke: rgb(63, 121, 63);
   animation: fadeToLighterGreen 1s forwards; /* Animation properties: 1s duration, forwards to stay at the final color */
 }
 
@@ -132,7 +133,7 @@ button:hover {
 .incorrect {
   fill: #bb0606; /* Dark red color (adjust hex code as needed) */
   animation: fadeToLighterRed 1s forwards; /* Animation properties: 1s duration, forwards to stay at the final color */
-  stroke: rgb(231, 0, 0);
+  stroke: rgb(124, 52, 52);
 }
 
 @keyframes fadeFromBlue {
@@ -168,4 +169,12 @@ button:hover {
 
 #feedback {
   min-width: 300px;
+}
+
+.previouslyCorrect {
+  fill: rgb(187, 250, 187);
+}
+
+.previouslyIncorrect {
+  fill: rgb(255, 198, 160);
 }
