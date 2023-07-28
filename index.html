@@ -817,7 +817,7 @@
             const country = allCountries[i];
             // get the bounding box of the path:
             const bbox = country.getBBox();
-            if (bbox.width < 10 || bbox.height < 10) {
+            if (bbox.width < 10 || bbox.height < 10 || country.getAttribute('name') == 'Federated States of Micronesia') {
                 // create a <circle> element:
                 const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                 // set its center to the center of the bounding box:
@@ -865,9 +865,27 @@
                 targetCountryObject = countries.find(function (country) {
                     return country.name == targetCountry.getAttribute('name')
                 })
+
+                targetCountryObject.repetitions.push({
+                    grade: guessedRight ? 1 : 0,
+                    date: new Date()
+                })
+
                 // if correct, double interval, if incorrect, half it (minimum 10)
                 if (guessedRight) {
-                    targetCountryObject.interval *= 2
+                    // get the streak: how many of the last repetitions are all correct, uniterrupted?
+                    let streak = 0
+                    for (let i = targetCountryObject.repetitions.length - 1; i >= 0; i--) {
+                        const repetition = targetCountryObject.repetitions[i];
+                        if (repetition.grade == 1) {
+                            streak++
+                        } else {
+                            break;
+                        }
+                    }
+                    console.log('streak:', streak)
+
+                    targetCountryObject.interval *= 2 * streak
                 } else {
                     targetCountryObject.interval /= 2
                     if (targetCountryObject.interval < 10) {
@@ -875,13 +893,10 @@
                     }
                 }
                 targetCountryObject.dueAt = new Date(new Date().getTime() + targetCountryObject.interval * 1000)
-                targetCountryObject.repetitions.push({
-                    grade: guessedRight? 1 : 0,
-                    date: new Date()
-                })
+
 
                 console.log('obj now', targetCountryObject);
-                
+
                 // check if correct
                 // give feedback accordingly
                 // if correct ,set country green
@@ -937,9 +952,6 @@
                     }, 2001)
                 }
             }
-
-
-
         })
 
         function pickRandomChallenge() {
@@ -947,9 +959,23 @@
             elFeedback.innerHTML = 'Waiting for click...'
             elGradeLED.style.backgroundColor = '#e0e0e0'
             // pick from countries array, where dueAt is in the past or null
-            dueCountries = countries.filter(function (country) {
-                return country.dueAt == null || country.dueAt < Date.now()
-            })
+            // with 80% chance, try to find something that was seen before first
+            let dueCountries = []
+            if (Math.random() < 0.8) {
+                console.log('going for old learning item first')
+                dueCountries = countries.filter(function (country) {
+                    return country.dueAt < new Date() && country.dueAt != null
+                })
+                console.log('old learning items that are due:', dueCountries)
+            }
+
+            if (dueCountries.length == 0) {
+                console.log('picking new learning item')
+                dueCountries = countries.filter(function (country) {
+                    return country.dueAt == null
+                })
+            }
+
             elDue.innerHTML = dueCountries.length
             targetCountry = dueCountries[Math.floor(Math.random() * dueCountries.length)].path
             elChallengeCountry.innerHTML = targetCountry.getAttribute('name')
