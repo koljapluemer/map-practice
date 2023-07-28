@@ -784,6 +784,7 @@
             <button id="zoom-world">Zoom To World</button>
             <button id="zoom-middle-america">Zoom To Central America</button>
             <button id="zoom-mediterranean">Zoom To Mediterranean</button>
+            <button id="zoom-sea">Zoom To SEA</button>
         </div>
     </div>
     <div id="feedback-wrapper" class="flex gap mv2 flex-items-center">
@@ -1022,6 +1023,20 @@
 
         function zoomToWorld() {
             elMap.setAttribute('viewBox', `0 0 1010 666`)
+            // show all circles 
+            for (let i = 0; i < allCircles.length; i++) {
+                const currentCircle = allCircles[i]
+                currentCircle.style.display = 'block'
+            }
+        }
+
+        const elZoomSEA = document.getElementById('zoom-sea')
+        elZoomSEA.addEventListener('click', function () {
+            zoomToSEA()
+        })
+
+        function zoomToSEA() {
+            elMap.setAttribute('viewBox', `720 380 200 130`)
             // show all circles 
             for (let i = 0; i < allCircles.length; i++) {
                 const currentCircle = allCircles[i]
