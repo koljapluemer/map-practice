@@ -1397,6 +1397,12 @@
             // set value property of elStatsDue progress to 255-due:
             elStatsDue.value = 255 - countriesDue
 
+            // handle no due countries
+            if (countriesDue.length == 0) {
+                alert('I think you are done for now? This is unexpected. Something will probably break. Try reloading?')
+                return;
+            }
+
             targetCountry = dueCountries[Math.floor(Math.random() * dueCountries.length)].path
             elChallengeCountry.innerHTML = targetCountry.getAttribute('name')
 
