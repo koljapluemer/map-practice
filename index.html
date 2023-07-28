@@ -805,10 +805,10 @@
 
         <div class="gauge-wrapper" id="accuracy-wrapper">
             <div class="label">accuracy</div>
-            <div id="stats-accuracy" class="gauge"></div> 
+            <div id="stats-accuracy" class="gauge"></div>
         </div>
 
-      
+
         <div class="gauge-wrapper" id="units-wrapper">
             <div class="label">training units done</div>
             <div id="stats-units" class="gauge">0</div>
@@ -842,7 +842,16 @@
 
         <div class="gauge-wrapper" id="most-confused-wrapper">
             <div class="label"> most confused</div>
-            <div id="stats-most-confused" class="gauge">N/A</div>
+            <div class="flex gap flex-items-center">
+                <div id="stats-most-confused-a" class="gauge small-gauge"></div>
+                <div class="gauge small-gauge">&</div>
+                <div id="stats-most-confused-b" class="gauge small-gauge"></div>
+            </div>
+        </div>
+
+        <div class="gauge-wrapper" id="nemesis-wrapper">
+            <div class="label">latest nemesis</div>
+            <div id="stats-nemesis" class="gauge">N/A</div>
         </div>
 
         <script>
@@ -867,6 +876,7 @@
             let statsThinkingTimes = []
             let countriesNrOfFailuresDict = {};
             let confusionDict = {};
+            let nemesisDict = {};
             // see if we have the nr of training units last session in localstorage
             let statsTrainingUnitsLastSession = localStorage.getItem('statsTrainingUnitsThisSession') ? localStorage.getItem('statsTrainingUnitsThisSession') : 'N/A'
             // define stats elements
@@ -878,7 +888,9 @@
             const elStatsUnitsLastSession = document.getElementById('stats-units-last-session')
             const elStatsThinkingTime = document.getElementById('stats-thinking-time')
             const elStatsHardestCountry = document.getElementById('stats-hardest-country')
-            const elStatsMostConfused = document.getElementById('stats-most-confused')
+            const elStatsMostConfusedA = document.getElementById('stats-most-confused-a')
+            const elStatsMostConfusedB = document.getElementById('stats-most-confused-b')
+            const elStatsNemesis = document.getElementById('stats-nemesis')
 
             // load countries from localStorage (if it exists)
             if (localStorage.getItem('countries')) {
@@ -1004,8 +1016,21 @@
                             }
                         }
 
-                        renderFailureAndConfusion()
+                        // add relevant data to the nemesis dict
+                        // for every country, it tracks the unbroken streak of 0 grades, from last to first
+                        // looks like {'Germany': 0}
+                        let negativeStreak = 0
+                        for (let i = countryObject.repetitions.length - 1; i >= 0; i--) {
+                            const repetition = countryObject.repetitions[i];
+                            if (repetition.grade == 0) {
+                                negativeStreak += 1
+                            } else {
+                                break;
+                            }
+                        }
+                        nemesisDict[countryObject.name] = negativeStreak
 
+                        renderFailureAndConfusion()
                         statsTrainingUnits += countryObject.repetitions.length
                     }
                 }
@@ -1059,6 +1084,8 @@
                     if (guessedRight) {
                         statsGlobalStreak += 1;
                         correctGuesses += 1;
+                        // set this country's nemesisDict entry to 0
+                        nemesisDict[targetCountryObject.name] = 0
                         renderStreak();
 
                         // get the streak: how many of the last repetitions are all correct, uniterrupted?
@@ -1086,6 +1113,8 @@
                         confusionDict[confusionKey] = confusionDict[confusionKey] ? confusionDict[confusionKey] + 1 : 1
                         console.log('new change in failure dict', countriesNrOfFailuresDict)
                         console.log('new change in confusion dict', confusionDict)
+                        nemesisDict[targetCountryObject.name] += 1
+                        console.log('new change in nemesis dict', nemesisDict)
                         renderFailureAndConfusion()
                         statsGlobalStreak = 0;
                         incorrectGuesses += 1;
@@ -1301,7 +1330,21 @@
                         mostCommonConfusionNrOfConfusions = value
                     }
                 }
-                elStatsMostConfused.innerHTML = mostCommonConfusion
+                if (mostCommonConfusion != null) {
+                    elStatsMostConfusedA.innerHTML = mostCommonConfusion.split('-')[0]
+                    elStatsMostConfusedB.innerHTML = mostCommonConfusion.split('-')[1]
+                } else {
+                    elStatsMostConfusedA.innerHTML = '-'
+                    elStatsMostConfusedB.innerHTML = '-'
+                }
+
+
+                // find the highest value in the nemesisDict, using reduce
+                const nemesis = Object.keys(nemesisDict).reduce(function (a, b) {
+                    return nemesisDict[a] > nemesisDict[b] ? a : b
+                })
+                elStatsNemesis.innerHTML = nemesis
+
             }
 
             function renderStreak() {
