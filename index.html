@@ -990,6 +990,17 @@
         </div>
     </div>
 
+    <div id="settings" class="label p4 mt2">
+        <label class="toggle-label">
+            <div class="toggle">
+              <input class="toggle-state" type="checkbox" name="check" value="check" id="tiny-country-check" />
+              <div class="indicator"></div>
+            </div>
+            <div class="label-text">Include Tiny Countries</div>
+          </label>
+          
+    </div>
+
 
     <script>
         // get names by getting the name property of every path in #math
@@ -1331,6 +1342,23 @@
         })
 
         function pickRandomChallenge() {
+            // check whether to include tiny countries by checking state of #tiny-country-check
+            const includeTinyCountries = document.getElementById('tiny-country-check').checked
+            let countriesToPickFrom = countries
+            if (!includeTinyCountries) {
+                // exclude everything that's included in the allCircles list
+                // check by matching country.name against the the .name property of the objects in allCircles
+                countriesToPickFrom = countries.filter(function (country) {
+                    for (let i = 0; i < allCircles.length; i++) {
+                        const circle = allCircles[i];
+                        if (circle.getAttribute('name') == country.name) {
+                            return false
+                        }
+                    }
+                    return true
+                })
+                console.log(`got ${countriesToPickFrom.length} countries now`)
+            }
             zoomToWorld();
             elFeedback.innerHTML = 'Waiting for click...'
             elGradeLED.style.backgroundColor = '#e0e0e0'
@@ -1339,7 +1367,7 @@
             let dueCountries = []
             if (Math.random() < 0.8) {
                 console.log('going for old learning item first')
-                dueCountries = countries.filter(function (country) {
+                dueCountries = countriesToPickFrom.filter(function (country) {
                     if (country.dueAt == null) {
                         return false;
                     }
@@ -1350,12 +1378,12 @@
 
             if (dueCountries.length == 0) {
                 console.log('picking new learning item')
-                dueCountries = countries.filter(function (country) {
+                dueCountries = countriesToPickFrom.filter(function (country) {
                     return country.dueAt == null
                 })
             }
 
-            const countriesDue = countries.filter(function (country) {
+            const countriesDue = countriesToPickFrom.filter(function (country) {
                 return country.dueAt == null || country.dueAt < new Date()
             }).length
             // set value property of elStatsDue progress to 255-due:
