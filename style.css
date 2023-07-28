@@ -6,7 +6,7 @@ html {
   align-items: center;
   padding: 0;
   margin: 0;
-  font-family: 'Baloo Thambi 2', cursive;
+  font-family: "Baloo Thambi 2", cursive;
   color: #333;
 }
 
@@ -19,13 +19,13 @@ html {
   width: 90vw;
   height: auto;
   max-height: 70vh;
+  position: relative;
 }
 
 path,
 circle {
   stroke: rgb(122, 122, 122);
   cursor: crosshair;
-
 }
 
 path {
@@ -86,10 +86,9 @@ button {
   border: none;
   padding: 14px 24px;
   cursor: pointer;
-  font-family: 'Baloo Thambi 2', cursive;
+  font-family: "Baloo Thambi 2", cursive;
   font-size: 18px;
   color: #333;
-
 }
 
 button:hover {
@@ -98,42 +97,75 @@ button:hover {
 }
 
 .display {
-  font-family: 'Martian Mono', monospace;
+  font-family: "Martian Mono", monospace;
 }
 
 #challengeCountry {
-  min-width: min(70vw, 800px)
+  min-width: min(70vw, 800px);
 }
 
 /* Keyframes for the animation */
 @keyframes fadeToLighterGreen {
-  0% { fill: #064d06; } /* Dark green color (adjust hex code as needed) */
-  100% { fill: #6bb66b; } /* Lighter green color (adjust hex code as needed) */
+  0% {
+    fill: #064d06;
+  } /* Dark green color (adjust hex code as needed) */
+  100% {
+    fill: #6bb66b;
+  } /* Lighter green color (adjust hex code as needed) */
 }
 
 /* CSS class .correct with animation */
 .correct {
-  fill: #064d06;; /* Dark green color (adjust hex code as needed) */
+  fill: #064d06; /* Dark green color (adjust hex code as needed) */
   animation: fadeToLighterGreen 1s forwards; /* Animation properties: 1s duration, forwards to stay at the final color */
 }
 
 @keyframes fadeToLighterRed {
-  0% { fill: #bb0606; } /* Dark red color (adjust hex code as needed) */
-  100% { fill: #e48f8f; } /* Lighter red color (adjust hex code as needed) */
+  0% {
+    fill: #bb0606;
+  } /* Dark red color (adjust hex code as needed) */
+  100% {
+    fill: #e48f8f;
+  } /* Lighter red color (adjust hex code as needed) */
 }
 
 .incorrect {
-  fill:  #bb0606; /* Dark red color (adjust hex code as needed) */
+  fill: #bb0606; /* Dark red color (adjust hex code as needed) */
   animation: fadeToLighterRed 1s forwards; /* Animation properties: 1s duration, forwards to stay at the final color */
-  stroke: rgb(231, 0, 0)
+  stroke: rgb(231, 0, 0);
 }
 
 @keyframes fadeFromBlue {
-  0% { fill: rgb(134, 134, 212); } /* Blue color (adjust hex code as needed) */
-  100% { fill: rgb(231, 231, 231); }
+  0% {
+    fill: rgb(134, 134, 212);
+  } /* Blue color (adjust hex code as needed) */
+  100% {
+    fill: rgb(231, 231, 231);
+  }
 }
 
 .selected {
-  fill:rgb(134, 134, 212); /* Blue color (adjust hex code as needed) */
+  fill: rgb(134, 134, 212); /* Blue color (adjust hex code as needed) */
   animation: fadeFromBlue 2s forwards; /* Animation properties: 1s duration, forwards to stay at the final color */
+}
+
+#zoom-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  flex-direction: column;
+}
+
+.led {
+  border-radius: 50%;
+  min-height: 20px;
+  height: 20px;
+  min-width: 20px;
+  width: 20px;
+  background: #e0e0e0;
+  box-shadow: inset 5px 5px 10px rgba(56, 56, 56, 0.4), inset -5px -5px 10px rgba(255, 255, 255, 0.4);
+}
+
+#feedback {
+  min-width: 300px;
 }
