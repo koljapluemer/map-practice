@@ -797,7 +797,31 @@
     <div id="stats">
         <ul>
             <li>
+                streak: <div id="global-streak"></div>
+            </li>
+            <li>
+                accuracy: <div id="accuracy"></div>
+            </li>
+            <li>
                 due: <span id="due">?</span> countries
+            </li>
+            <li>
+                training units done: <div id="units">0</div>
+            </li>
+            <li>
+                training units this session: <div id="units-this-session">0</div>
+            </li>
+            <li>
+                training units last session: <div id="units-last-session">N / A</div>
+            </li>
+            <li>
+                average thinking time: <div id="thinking-time"></div>
+            </li>
+            <li>
+                hardest country: <div id="hardest-country"></div>
+            </li>
+            <li>
+                most confused: <div id="most-confused"></div>
             </li>
         </ul>
     </div>
@@ -833,7 +857,7 @@
                 'Federated States of Micronesia',
                 'French Polynesia', 
                 'Saint Helena', 
-                'Marshall Islands'
+                'Marshall Islands',
             ]
             const excludeCountries = [
                 'Burundi',
@@ -849,7 +873,8 @@
                 'Guinea-Bissau',
                 'Israel',
                 'Switzerland',
-                'Sri Lanka'
+                'Sri Lanka',
+                'Slovakia'
             ]
             if ((bbox.width < 8 || bbox.height < 8 || manualSmallCountries.includes(country.getAttribute('name'))) && !excludeCountries.includes(country.getAttribute('name'))) {
                 // create a <circle> element:
