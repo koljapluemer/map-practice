@@ -172,9 +172,11 @@ button:hover {
 }
 
 .previouslyCorrect {
-  fill: rgb(187, 250, 187);
+  /* fill: rgb(187, 250, 187); */
+  fill: rgb(86, 177, 86, .2);
 }
 
 .previouslyIncorrect {
-  fill: rgb(255, 198, 160);
+  /* fill: rgb(255, 198, 160); */
+  fill: rgb(187, 6, 6, .2)
 }

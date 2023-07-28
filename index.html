@@ -813,7 +813,8 @@
         const allCountries = document.getElementById('map').getElementsByTagName('path');
         const elDue = document.getElementById('due')
         console.log('countries', allCountries);
-        countries = []
+        let countries = []
+        let allCircles = []
         let localStorageDataExists = false
         // load countries from localStorage (if it exists)
         if (localStorage.getItem('countries')) {
@@ -865,6 +866,7 @@
                 circle.classList.add('small-country-circle')
                 // append it to the <svg> element:
                 document.getElementById('map').appendChild(circle);
+                allCircles.push(circle)
             }
             // if we have not loaded data
             if (!localStorageDataExists) {
@@ -890,17 +892,27 @@
                 if (countryObject.repetitions.length > 0) {
                     console.log('object has repetitions')
                     const lastRepetition = countryObject.repetitions[countryObject.repetitions.length - 1]
+                    // also check if there is a circle with the same name
+                    const matchingCircles = allCircles.filter(function (circle) {
+                        return circle.getAttribute('name') == countryObject.name
+                    })
                     if (lastRepetition.grade == 1) {
                         countryObject.path.classList.add('previouslyCorrect')
+                        if (matchingCircles.length > 0) {
+                            matchingCircles[0].classList.add('previouslyCorrect')
+                        }
                     } else {
                         countryObject.path.classList.add('previouslyIncorrect')
+                        if (matchingCircles.length > 0) {
+                            matchingCircles[0].classList.add('previouslyIncorrect')
+                        }
                     }
+                    
                 }
             }
         }
 
 
-        const allCircles = document.getElementsByTagName('circle')
 
         // listen to all clicks - if the click is on the svg, display the title of the clicked sub-object
         document.getElementById('map').addEventListener('click', function (e) {
