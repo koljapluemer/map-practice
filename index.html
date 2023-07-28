@@ -841,7 +841,9 @@
                 // after 2 seconds, pick new challenge:
                 if (clickedName === targetCountry.getAttribute('name')) {
                     elFeedback.innerHTML = 'Correct!'
-                    clickedCountry.style.fill = 'green'
+                    // remove and add .correct class
+                    clickedCountry.classList.remove('correct')
+                    clickedCountry.classList.add('correct')
                     setTimeout(function () {
                         pickRandomChallenge()
                     }, 2000)
@@ -850,10 +852,8 @@
                         zoomToWorld();
                     }, 1000);
                     elFeedback.innerHTML = `Incorrect! That's ${clickedName}.`
-                    targetCountry.style.fill = 'red'
-                    targetCountry.style.stroke = 'rgb(231, 0, 0)'
-                    // add .flashing to targetCountry
-                    targetCountry.classList.add('flashing')
+                    targetCountry.classList.remove('incorrect')
+                    targetCountry.classList.add('incorrect')
                     // check if the targetCountry is small (a <circle> with name of the country exists)
                     // if so, temporarily add a bigger circle around it
                     let targetIsSmall = false
@@ -880,12 +880,11 @@
                             circle.remove()
                         }, 2000)
                     }
-                    clickedCountry.style.fill = 'blue'
+                    clickedCountry.classList.add('selected')
                     setTimeout(function () {
-                        clickedCountry.style.fill = 'rgb(231, 231, 231)'
-
+                        clickedCountry.classList.remove('selected')
                         pickRandomChallenge()
-                    }, 2000)
+                    }, 2001)
                 }
             }
 

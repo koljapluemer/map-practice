@@ -38,7 +38,7 @@ path {
 
 path:hover,
 .small-country-circle:hover {
-  fill: rgb(134, 134, 212);
+  fill: rgb(134, 134, 212) !important;
   stroke: rgb(71, 71, 134);
   z-index: 99;
 }
@@ -103,4 +103,37 @@ button:hover {
 
 #challengeCountry {
   min-width: min(70vw, 800px)
+}
+
+/* Keyframes for the animation */
+@keyframes fadeToLighterGreen {
+  0% { fill: #064d06; } /* Dark green color (adjust hex code as needed) */
+  100% { fill: #6bb66b; } /* Lighter green color (adjust hex code as needed) */
+}
+
+/* CSS class .correct with animation */
+.correct {
+  fill: #064d06;; /* Dark green color (adjust hex code as needed) */
+  animation: fadeToLighterGreen 1s forwards; /* Animation properties: 1s duration, forwards to stay at the final color */
+}
+
+@keyframes fadeToLighterRed {
+  0% { fill: #bb0606; } /* Dark red color (adjust hex code as needed) */
+  100% { fill: #e48f8f; } /* Lighter red color (adjust hex code as needed) */
+}
+
+.incorrect {
+  fill:  #bb0606; /* Dark red color (adjust hex code as needed) */
+  animation: fadeToLighterRed 1s forwards; /* Animation properties: 1s duration, forwards to stay at the final color */
+  stroke: rgb(231, 0, 0)
+}
+
+@keyframes fadeFromBlue {
+  0% { fill: rgb(134, 134, 212); } /* Blue color (adjust hex code as needed) */
+  100% { fill: rgb(231, 231, 231); }
+}
+
+.selected {
+  fill:rgb(134, 134, 212); /* Blue color (adjust hex code as needed) */
+  animation: fadeFromBlue 2s forwards; /* Animation properties: 1s duration, forwards to stay at the final color */
 }
