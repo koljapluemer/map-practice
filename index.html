@@ -797,31 +797,31 @@
     <div id="stats">
         <ul>
             <li>
-                streak: <div id="global-streak"></div>
+                streak: <div id="stats-global-streak"></div>
             </li>
             <li>
-                accuracy: <div id="accuracy"></div>
+                accuracy: <div id="stats-accuracy"></div>
             </li>
             <li>
-                due: <span id="due">?</span> countries
+                due: <span id="stats-due"></span>
             </li>
             <li>
-                training units done: <div id="units">0</div>
+                training units done: <div id="stats-units">0</div>
             </li>
             <li>
-                training units this session: <div id="units-this-session">0</div>
+                training units this session: <div id="stats-units-this-session">0</div>
             </li>
             <li>
-                training units last session: <div id="units-last-session">N / A</div>
+                training units last session: <div id="stats-units-last-session">N / A</div>
             </li>
             <li>
-                average thinking time: <div id="thinking-time"></div>
+                average thinking time: <div id="stats-thinking-time"></div>
             </li>
             <li>
-                hardest country: <div id="hardest-country"></div>
+                hardest country: <div id="stats-hardest-country"></div>
             </li>
             <li>
-                most confused: <div id="most-confused"></div>
+                most confused: <div id="stats-most-confused"></div>
             </li>
         </ul>
     </div>
@@ -835,11 +835,23 @@
         const elMap = document.getElementById('map')
         const elGradeLED = document.getElementById('gradeLED')
         const allCountries = document.getElementById('map').getElementsByTagName('path');
-        const elDue = document.getElementById('due')
         console.log('countries', allCountries);
         let countries = []
         let allCircles = []
         let localStorageDataExists = false
+        // define stats data
+        let statsGlobalStreak = 0;
+        // define stats elements
+        const elStatsGlobalStreak = document.getElementById('stats-global-streak')
+        const elStatsAccuracy = document.getElementById('stats-accuracy')
+        const statsDue = document.getElementById('stats-due')
+        const elStatsUnits = document.getElementById('stats-units')
+        const elStatsUnitsThisSession = document.getElementById('stats-units-this-session')
+        const elStatsUnitsLastSession = document.getElementById('stats-units-last-session')
+        const elStatsThinkingTime = document.getElementById('stats-thinking-time')
+        const elStatsHardestCountry = document.getElementById('stats-hardest-country')
+        const elStatsMostConfused = document.getElementById('stats-most-confused')
+
         // load countries from localStorage (if it exists)
         if (localStorage.getItem('countries')) {
             countries = JSON.parse(localStorage.getItem('countries'))
@@ -968,6 +980,9 @@
 
                 // if correct, double interval, if incorrect, half it (minimum 10)
                 if (guessedRight) {
+                    statsGlobalStreak += 1;
+                    elStatsGlobalStreak.innerHTML = statsGlobalStreak
+                    
                     // get the streak: how many of the last repetitions are all correct, uniterrupted?
                     let streak = 0
                     for (let i = targetCountryObject.repetitions.length - 1; i >= 0; i--) {
@@ -986,6 +1001,8 @@
                         targetCountryObject.interval = 120
                     }
                 } else {
+                    statsGlobalStreak = 0;
+                    elStatsGlobalStreak.innerHTML = statsGlobalStreak
                     targetCountryObject.interval /= 2
                     if (targetCountryObject.interval < 10) {
                         targetCountryObject.interval = 10
@@ -1084,7 +1101,7 @@
                 })
             }
 
-            elDue.innerHTML = countries.filter(function (country) {
+            statsDue.innerHTML = countries.filter(function (country) {
                 return country.dueAt == null || country.dueAt < new Date()
             }).length
             targetCountry = dueCountries[Math.floor(Math.random() * dueCountries.length)].path
