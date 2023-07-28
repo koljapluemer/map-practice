@@ -781,10 +781,12 @@
         </svg>
 
         <div id="zoom-buttons" class="flex justify-center gap">
-            <button id="zoom-world">Zoom To World</button>
-            <button id="zoom-middle-america">Zoom To Central America</button>
-            <button id="zoom-mediterranean">Zoom To Mediterranean</button>
-            <button id="zoom-sea">Zoom To SEA</button>
+            <span>Zoom To...</span>
+            <button id="zoom-world">World</button>
+            <button id="zoom-africa">Africa</button>
+            <button id="zoom-middle-america">Central America</button>
+            <button id="zoom-mediterranean">Mediterranean</button>
+            <button id="zoom-sea">SEA</button>
         </div>
     </div>
     <div id="feedback-wrapper" class="flex gap mv2 flex-items-center">
@@ -826,8 +828,24 @@
             const country = allCountries[i];
             // get the bounding box of the path:
             const bbox = country.getBBox();
-            const manualSmallCountres = ['Federated States of Micronesia', 'French Polynesia', 'Saint Helena']
-            if (bbox.width < 10 || bbox.height < 10 || manualSmallCountres.includes(country.getAttribute('name'))) {
+            const manualSmallCountries = ['Federated States of Micronesia', 'French Polynesia', 'Saint Helena']
+            const excludeCountries = [
+                'Burundi',
+                'Albania',
+                'Macedonia',
+                'Montenegro',
+                'Lesotho',
+                'Lebanon',
+                'Rwanda',
+                'Malawi',
+                'Swaziland',
+                'Equatorial Guinea',
+                'Guinea-Bissau',
+                'Israel',
+                'Switzerland',
+                'Sri Lanka'
+            ]
+            if ((bbox.width < 8 || bbox.height < 8 || manualSmallCountries.includes(country.getAttribute('name'))) && !excludeCountries.includes(country.getAttribute('name'))) {
                 // create a <circle> element:
                 const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                 // set its center to the center of the bounding box:
@@ -1005,7 +1023,9 @@
                 })
             }
 
-            elDue.innerHTML = dueCountries.length
+            elDue.innerHTML = countries.filter(function (country) {
+                    return country.dueAt == null || country.dueAt < new Date()
+                }).length
             targetCountry = dueCountries[Math.floor(Math.random() * dueCountries.length)].path
             elChallengeCountry.innerHTML = targetCountry.getAttribute('name')
         }
@@ -1063,6 +1083,16 @@
                 currentCircle.style.display = 'block'
             }
         }
+
+        const elZoomAfrica = document.getElementById('zoom-africa')
+        elZoomAfrica.addEventListener('click', function () {
+            elMap.setAttribute('viewBox', `380 400 300 195`)
+            // show all circles 
+            for (let i = 0; i < allCircles.length; i++) {
+                const currentCircle = allCircles[i]
+                currentCircle.style.display = 'block'
+            }
+        })
     </script>
 
 </body>
