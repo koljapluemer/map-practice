@@ -1,12 +1,24 @@
-body {
-  width: 100vw;
-  height: 100vh;
+body,
+html {
+  background: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  font-family: 'Baloo Thambi 2', cursive;
+  color: #333;
 }
 
 #map {
-  max-width: 95%;
-  max-height: 95%;
-  margin: auto;
+  width: 100%;
+  height: 100%;
+}
+
+#map-wrapper {
+  width: 90vw;
+  height: auto;
+  max-height: 70vh;
 }
 
 path,
@@ -19,14 +31,14 @@ path {
 }
 
 .small-country-circle {
-  fill: rgba(231, 231, 231, .2);
+  fill: rgba(231, 231, 231, 0.2);
 }
 
 path:hover,
 .small-country-circle:hover {
   fill: rgb(134, 134, 212);
   stroke: rgb(71, 71, 134);
-  z-index: 99
+  z-index: 99;
 }
 
 .flashing {
@@ -41,13 +53,52 @@ path:hover,
   0%,
   50% {
     fill: red; /* Start with red */
-    
   }
   100% {
-   fill: orange; /* End with orange */
+    fill: orange; /* End with orange */
   }
 }
 
 .guide-circle {
-  fill: rgba(200, 0, 0, .1)
+  fill: rgba(200, 0, 0, 0.1);
+}
+
+.inset {
+  border-radius: 10px;
+  background: #e0e0e0;
+  box-shadow: inset 6px 6px 12px #bebebe, inset -6px -6px 12px #ffffff;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.gap {
+  gap: 24px;
+}
+
+button {
+  border-radius: 16px;
+  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  box-shadow: 5px 5px 8px #d3d3d3, -5px -5px 8px #ededed;
+  border: none;
+  padding: 14px 24px;
+  cursor: pointer;
+  font-family: 'Baloo Thambi 2', cursive;
+  font-size: 18px;
+  color: #333;
+
+}
+
+button:hover {
+  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  box-shadow: 5px 5px 5px #dedede, -5px -5px 5px #e2e2e2;
+}
+
+.display {
+  font-family: 'Martian Mono', monospace;
+}
+
+#challengeCountry {
+  min-width: min(70vw, 800px)
 }
