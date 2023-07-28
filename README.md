@@ -4,7 +4,7 @@
 
 This is a little tool I built to get better at [this GeoGuessr challenge](https://www.geoguessr.com/vgp/3355).
 
-**Check it out [here](https://learn-worldmap.netlify.app/)
+**Check it out [here](https://learn-worldmap.netlify.app/)** (free, no signup, no download)
 
 ## Tech Stack
 

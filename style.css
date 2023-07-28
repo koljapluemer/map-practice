@@ -228,6 +228,8 @@ button:hover {
   gap: 6px;
 }
 
+
+
 .gauge-wrapper {
   display: flex;
   align-items: flex-start;
@@ -278,6 +280,8 @@ button:hover {
 
 #settings {
   min-width: 80vw;
+  flex-direction: column;
+  align-items: flex-start;
   /* background: #ecf0f3; */
 }
 
