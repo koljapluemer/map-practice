@@ -865,7 +865,22 @@
                 targetCountryObject = countries.find(function (country) {
                     return country.name == targetCountry.getAttribute('name')
                 })
+                // if correct, double interval, if incorrect, half it (minimum 10)
+                if (guessedRight) {
+                    targetCountryObject.interval *= 2
+                } else {
+                    targetCountryObject.interval /= 2
+                    if (targetCountryObject.interval < 10) {
+                        targetCountryObject.interval = 10
+                    }
+                }
                 targetCountryObject.dueAt = new Date(new Date().getTime() + targetCountryObject.interval * 1000)
+                targetCountryObject.repetitions.push({
+                    grade: guessedRight? 1 : 0,
+                    date: new Date()
+                })
+
+                console.log('obj now', targetCountryObject);
                 
                 // check if correct
                 // give feedback accordingly
