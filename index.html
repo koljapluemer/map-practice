@@ -787,6 +787,7 @@
             <button id="zoom-middle-america">Central America</button>
             <button id="zoom-mediterranean">Mediterranean</button>
             <button id="zoom-sea">SEA</button>
+            <button id="zoom-oceania">Oceania</button>
         </div>
     </div>
     <div id="feedback-wrapper" class="flex gap mv2 flex-items-center">
@@ -1409,6 +1410,16 @@
             }
         })
 
+        const elZoomOceania = document.getElementById('zoom-oceania')
+        elZoomOceania.addEventListener('click', function () {
+            elMap.setAttribute('viewBox', `830 430 200 130`)
+            // show all circles 
+            for (let i = 0; i < allCircles.length; i++) {
+                const currentCircle = allCircles[i]
+                currentCircle.style.display = 'block'
+            }
+        })
+
         function calculateAccuracy() {
             // calculate accuracy out of number of correct and incorrect guesses, round to two after decimal
             const accuracy = Math.round(correctGuesses / (correctGuesses + incorrectGuesses) * 10000) / 100
@@ -1474,8 +1485,6 @@
                 elProgressBarIterator.style.width = width + 'px'
                 elProgressBarIterator.style.minWidth = width + 'px'
                 elStatsGlobalStreak.appendChild(elProgressBarIterator)
-
-
             }
         }
 
