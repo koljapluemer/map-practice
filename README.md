@@ -10,6 +10,23 @@ This is a little tool I built to get better at [this GeoGuessr challenge](https:
 
 A horrible mess of code in a single `index.html`. Vanilla JavaScript. Also using [funcssion](https://funcssion.com/) and [this svg map](https://github.com/VictorCazanave/svg-maps/tree/master/packages/world)
 
+### Testing
+
+I experimented a bit with testing. It's surprisingly hard to test plain js without bringing NPM or other heavy-duty stuff in. For now, there is a bit of E2E testing with Python Selenium in `test.py`.
+
+To run:
+
+```
+python3 -m venv .venv
+source .venv/bin/activate
+pip install selenium
+python test.py
+
+```
+
+The test loads the tool up normally - as such, a random country is chosen and the test is not deterministic (in fact, it fails to click the correct country when it's small and overlapping). This is a bit of a no-no. Also, test coverage is *low*.
+
+
 ## FAQ
 
 ### What does thing thing do?
