@@ -1,10 +1,13 @@
-* see that both circle and country are set to correct/incorrect (only one of them is clicked)
+* see that both circle and country are set to correct/incorrect (only one of them is clicked) [when first loading the countries this already works]
 * build full zoom/pan capabilities
 * extend testing
 * check if due `<progress>` works correctly
 * consider gamification/split in levels ("when to stop?")
 * ChatGPT tutoring prompt?
 * bug: when nemesis dict is all 0, something will still be nemesis (likely similar with the others)
+* add SEO stuff
+* consider implementing proper patterns like Observer into `main.js`, e.g. with stats (see `DOC.md`)
+* move panning/scrolling into its own file
 
 ---
 
