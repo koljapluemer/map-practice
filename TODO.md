@@ -14,3 +14,4 @@
 * make the "overlapping circles" interaction in the Caribbean more fun somehow?
 * mobile :(
 * clearly communicate state of tiny country toggle
+* check the [HN thread](https://news.ycombinator.com/item?id=36913829) and convert all reports into user stories
