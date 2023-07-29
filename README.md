@@ -17,7 +17,7 @@ This is a little tool I built to get better at [this GeoGuessr challenge](https:
 
 ## Tech Stack
 
-A horrible mess of code in a single `index.html`. Vanilla JavaScript. Also using [funcssion](https://funcssion.com/) and [this svg map](https://github.com/VictorCazanave/svg-maps/tree/master/packages/world)
+A horrible mess of code in a single `index.html`. Vanilla JavaScript. Also using [funcssion](https://funcssion.com/) and [this svg map](https://github.com/VictorCazanave/svg-maps/tree/master/packages/world). For zooming and panning, I adapted [svg-pan-zoom](https://github.com/bumbu/svg-pan-zoom).
 
 ### Testing
 

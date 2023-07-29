@@ -313,19 +313,20 @@ document.getElementById('map').addEventListener('click', function (e) {
             }
 
             if (targetIsSmall) {
-                console.log('target is small');
-                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                // set its center to the center of the bounding box:
-                circle.setAttribute('cx', targetCountry.getBBox().x + targetCountry.getBBox().width / 2);
-                circle.setAttribute('cy', targetCountry.getBBox().y + targetCountry.getBBox().height / 2);
-                // set its radius to half the width of the bounding box:
-                circle.setAttribute('r', '20')
-                circle.classList.add('guide-circle')
-                // append it to the <svg> element:
-                document.getElementById('map').appendChild(circle);
-                setTimeout(function () {
-                    circle.remove()
-                }, 2000)
+                // remove for now because panning library broke it...
+                // console.log('target is small');
+                // const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                // // set its center to the center of the bounding box:
+                // circle.setAttribute('cx', targetCountry.getBBox().x + targetCountry.getBBox().width / 2);
+                // circle.setAttribute('cy', targetCountry.getBBox().y + targetCountry.getBBox().height / 2);
+                // // set its radius to half the width of the bounding box:
+                // circle.setAttribute('r', '20')
+                // circle.classList.add('guide-circle')
+                // // append it to the <svg> element:
+                // document.getElementById('map').appendChild(circle);
+                // setTimeout(function () {
+                //     circle.remove()
+                // }, 2000)
             }
             clickedCountry.classList.add('selected')
             setTimeout(function () {
@@ -537,77 +538,3 @@ function renderStreak() {
         elStatsGlobalStreak.appendChild(elProgressBarIterator)
     }
 }
-
-// document.addEventListener('DOMContentLoaded', function () {
-
-//     // Variables to store the initial mouse position and viewBox values
-//     let mouseX, mouseY, viewBoxX, viewBoxY, viewBoxWidth, viewBoxHeight;
-
-//     // Function to handle the start of dragging
-//     function handleDragStart(event) {
-//         // Store the initial mouse position and current viewBox values
-//         mouseX = event.clientX;
-//         mouseY = event.clientY;
-//         const viewBox = elMap.getAttribute('viewBox').split(' ');
-//         viewBoxX = parseFloat(viewBox[0]);
-//         viewBoxY = parseFloat(viewBox[1]);
-//         viewBoxWidth = parseFloat(viewBox[2]);
-//         viewBoxHeight = parseFloat(viewBox[3]);
-
-//         // Attach the drag event handlers to the document
-//         document.addEventListener('mousemove', handleDrag);
-//         document.addEventListener('mouseup', handleDragEnd);
-//     }
-
-//     // Function to handle the dragging
-//     function handleDrag(event) {
-//         // Calculate the distance moved by the mouse
-//         const deltaX = event.clientX - mouseX;
-//         const deltaY = event.clientY - mouseY;
-
-//         // Update the viewBox based on the distance moved
-//         const newViewBoxX = viewBoxX - deltaX;
-//         const newViewBoxY = viewBoxY - deltaY;
-
-//         // Preserve the existing viewBox width and height
-//         const newViewBoxWidth = viewBoxWidth;
-//         const newViewBoxHeight = viewBoxHeight;
-
-//         elMap.setAttribute('viewBox', `${newViewBoxX} ${newViewBoxY} ${newViewBoxWidth} ${newViewBoxHeight}`);
-//     }
-
-//     // Function to handle the end of dragging
-//     function handleDragEnd() {
-//         // Remove the drag event handlers from the document
-//         document.removeEventListener('mousemove', handleDrag);
-//         document.removeEventListener('mouseup', handleDragEnd);
-//     }
-
-//     // Attach the drag event handler to the SVG map element
-//     elMap.addEventListener('mousedown', handleDragStart);
-// });
-
-// // add viewport zoom to #zoom-out and #zoom-in:
-// const elZoomOut = document.getElementById('zoom-out')
-// elZoomOut.addEventListener('click', function () {
-//     const viewBox = elMap.getAttribute('viewBox').split(' ');
-//     const viewBoxX = parseFloat(viewBox[0]);
-//     const viewBoxY = parseFloat(viewBox[1]);
-//     const viewBoxWidth = parseFloat(viewBox[2]);
-//     const viewBoxHeight = parseFloat(viewBox[3]);
-//     elMap.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth * 1.1} ${viewBoxHeight * 1.1}`);
-// })
-
-// const elZoomIn = document.getElementById('zoom-in')
-// elZoomIn.addEventListener('click', function () {
-//     const viewBox = elMap.getAttribute('viewBox').split(' ');
-//     const viewBoxX = parseFloat(viewBox[0]);
-//     const viewBoxY = parseFloat(viewBox[1]);
-//     const viewBoxWidth = parseFloat(viewBox[2]);
-//     const viewBoxHeight = parseFloat(viewBox[3]);
-//     elMap.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth * 0.9} ${viewBoxHeight * 0.9}`);
-// })
-
-
-
-
