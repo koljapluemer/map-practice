@@ -413,3 +413,59 @@ button:hover {
 .toggle-state:checked ~ .indicator {
   transform: translate3d(25%, 0, 0);
 }
+
+/* completely change layout for mobile */
+
+@media only screen and (max-width: 600px) {
+  #stats {
+    display: none;
+  }
+
+  #map-wrapper {
+    width: 100vw;
+    min-width: 100vw;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  #settings {
+    display: none;
+  }
+
+  #challenge-wrapper {
+      position: absolute;
+      background-color: #ebebeb;
+      top: 10px;
+      left: 10px;
+      z-index: 999;
+      padding: 12px;
+      font-size: 12px;
+      border-radius: 12px
+  }
+
+  #challengeCountry {
+    min-width: inherit;
+  }
+
+  #zoom-buttons {
+    display: none;
+  }
+
+  #feedback-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    background-color: #ebebeb;
+    padding: 8px;
+  }
+
+  #zoom-level-buttons {
+    bottom: 50px;
+  }
+}
