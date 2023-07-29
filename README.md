@@ -6,6 +6,15 @@ This is a little tool I built to get better at [this GeoGuessr challenge](https:
 
 **Check it out [here](https://learn-worldmap.netlify.app/)** (free, no signup, no download)
 
+## Idea
+
+### User Stories
+
+#### Core
+
+* [x] As a user, I want to practice country positions in a fun and efficient way
+* [x] As a user, I want to have an overview of how well I am doing
+
 ## Tech Stack
 
 A horrible mess of code in a single `index.html`. Vanilla JavaScript. Also using [funcssion](https://funcssion.com/) and [this svg map](https://github.com/VictorCazanave/svg-maps/tree/master/packages/world)

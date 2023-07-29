@@ -2,8 +2,6 @@
 * build full zoom/pan capabilities
 * extend testing
 * check if due `<progress>` works correctly
-* consider gamification/split in levels ("when to stop?")
-* ChatGPT tutoring prompt?
 * bug: when nemesis dict is all 0, something will still be nemesis (likely similar with the others)
 * add SEO stuff
 * consider implementing proper patterns like Observer into `main.js`, e.g. with stats (see `DOC.md`)
