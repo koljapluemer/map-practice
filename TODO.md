@@ -4,6 +4,7 @@
 * check if due `<progress>` works correctly
 * consider gamification/split in levels ("when to stop?")
 * ChatGPT tutoring prompt?
+* bug: when nemesis dict is all 0, something will still be nemesis (likely similar with the others)
 
 ---
 
