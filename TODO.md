@@ -3,3 +3,12 @@
 * add testing
 * check if due `<progress>` works correctly
 * consider gamification/split in levels ("when to stop?")
+* ChatGPT tutoring prompt?
+
+---
+
+* adapt timing of incorrect message
+* zoom for Europe?
+* make the "overlapping circles" interaction in the Caribbean more fun somehow?
+* mobile :(
+* clearly communicate state of tiny country toggle
