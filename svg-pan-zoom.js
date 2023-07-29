@@ -49,10 +49,12 @@
         zoomGroup.setAttribute('class', 'svg-pan-zoom-control');
     
         // Control elements
-        zoomGroup.appendChild(this._createZoomIn(instance))
-        zoomGroup.appendChild(this._createZoomReset(instance))
-        zoomGroup.appendChild(this._createZoomOut(instance))
-    
+        // zoomGroup.appendChild(this._createZoomIn(instance))
+        // zoomGroup.appendChild(this._createZoomReset(instance))
+        // zoomGroup.appendChild(this._createZoomOut(instance))
+        // instead of appending stuff, just run the creator...
+        this._createZoomIn(instance)
+        this._createZoomOut(instance)
         // Finally append created element
         instance.svg.appendChild(zoomGroup)
     
@@ -61,25 +63,25 @@
       }
     
     , _createZoomIn: function(instance) {
-        var zoomIn = document.createElementNS(SvgUtils.svgNS, 'g');
-        zoomIn.setAttribute('id', 'svg-pan-zoom-zoom-in');
-        zoomIn.setAttribute('transform', 'translate(30.5 5) scale(0.015)');
-        zoomIn.setAttribute('class', 'svg-pan-zoom-control');
+        var zoomIn = document.getElementById('zoom-in')
+        // zoomIn.setAttribute('id', 'svg-pan-zoom-zoom-in');
+        // zoomIn.setAttribute('transform', 'translate(30.5 5) scale(0.015)');
+        // zoomIn.setAttribute('class', 'svg-pan-zoom-control');
         zoomIn.addEventListener('click', function() {instance.getPublicInstance().zoomIn()}, false)
         zoomIn.addEventListener('touchstart', function() {instance.getPublicInstance().zoomIn()}, false)
     
-        var zoomInBackground = document.createElementNS(SvgUtils.svgNS, 'rect'); // TODO change these background space fillers to rounded rectangles so they look prettier
-        zoomInBackground.setAttribute('x', '0');
-        zoomInBackground.setAttribute('y', '0');
-        zoomInBackground.setAttribute('width', '1500'); // larger than expected because the whole group is transformed to scale down
-        zoomInBackground.setAttribute('height', '1400');
-        zoomInBackground.setAttribute('class', 'svg-pan-zoom-control-background');
-        zoomIn.appendChild(zoomInBackground);
+        // var zoomInBackground = document.createElementNS(SvgUtils.svgNS, 'rect'); // TODO change these background space fillers to rounded rectangles so they look prettier
+        // zoomInBackground.setAttribute('x', '0');
+        // zoomInBackground.setAttribute('y', '0');
+        // zoomInBackground.setAttribute('width', '1500'); // larger than expected because the whole group is transformed to scale down
+        // zoomInBackground.setAttribute('height', '1400');
+        // zoomInBackground.setAttribute('class', 'svg-pan-zoom-control-background');
+        // zoomIn.appendChild(zoomInBackground);
     
-        var zoomInShape = document.createElementNS(SvgUtils.svgNS, 'path');
-        zoomInShape.setAttribute('d', 'M1280 576v128q0 26 -19 45t-45 19h-320v320q0 26 -19 45t-45 19h-128q-26 0 -45 -19t-19 -45v-320h-320q-26 0 -45 -19t-19 -45v-128q0 -26 19 -45t45 -19h320v-320q0 -26 19 -45t45 -19h128q26 0 45 19t19 45v320h320q26 0 45 19t19 45zM1536 1120v-960 q0 -119 -84.5 -203.5t-203.5 -84.5h-960q-119 0 -203.5 84.5t-84.5 203.5v960q0 119 84.5 203.5t203.5 84.5h960q119 0 203.5 -84.5t84.5 -203.5z');
-        zoomInShape.setAttribute('class', 'svg-pan-zoom-control-element');
-        zoomIn.appendChild(zoomInShape);
+        // var zoomInShape = document.createElementNS(SvgUtils.svgNS, 'path');
+        // zoomInShape.setAttribute('d', 'M1280 576v128q0 26 -19 45t-45 19h-320v320q0 26 -19 45t-45 19h-128q-26 0 -45 -19t-19 -45v-320h-320q-26 0 -45 -19t-19 -45v-128q0 -26 19 -45t45 -19h320v-320q0 -26 19 -45t45 -19h128q26 0 45 19t19 45v320h320q26 0 45 19t19 45zM1536 1120v-960 q0 -119 -84.5 -203.5t-203.5 -84.5h-960q-119 0 -203.5 84.5t-84.5 203.5v960q0 119 84.5 203.5t203.5 84.5h960q119 0 203.5 -84.5t84.5 -203.5z');
+        // zoomInShape.setAttribute('class', 'svg-pan-zoom-control-element');
+        // zoomIn.appendChild(zoomInShape);
     
         return zoomIn
       }
@@ -116,25 +118,25 @@
     
     , _createZoomOut: function(instance){
         // zoom out
-        var zoomOut = document.createElementNS(SvgUtils.svgNS, 'g');
-        zoomOut.setAttribute('id', 'svg-pan-zoom-zoom-out');
-        zoomOut.setAttribute('transform', 'translate(30.5 70) scale(0.015)');
-        zoomOut.setAttribute('class', 'svg-pan-zoom-control');
+        var zoomOut = document.getElementById('zoom-out')
+        // zoomOut.setAttribute('id', 'svg-pan-zoom-zoom-out');
+        // zoomOut.setAttribute('transform', 'translate(30.5 70) scale(0.015)');
+        // zoomOut.setAttribute('class', 'svg-pan-zoom-control');
         zoomOut.addEventListener('click', function() {instance.getPublicInstance().zoomOut()}, false);
         zoomOut.addEventListener('touchstart', function() {instance.getPublicInstance().zoomOut()}, false);
     
-        var zoomOutBackground = document.createElementNS(SvgUtils.svgNS, 'rect'); // TODO change these background space fillers to rounded rectangles so they look prettier
-        zoomOutBackground.setAttribute('x', '0');
-        zoomOutBackground.setAttribute('y', '0');
-        zoomOutBackground.setAttribute('width', '1500'); // larger than expected because the whole group is transformed to scale down
-        zoomOutBackground.setAttribute('height', '1400');
-        zoomOutBackground.setAttribute('class', 'svg-pan-zoom-control-background');
-        zoomOut.appendChild(zoomOutBackground);
+        // var zoomOutBackground = document.createElementNS(SvgUtils.svgNS, 'rect'); // TODO change these background space fillers to rounded rectangles so they look prettier
+        // zoomOutBackground.setAttribute('x', '0');
+        // zoomOutBackground.setAttribute('y', '0');
+        // zoomOutBackground.setAttribute('width', '1500'); // larger than expected because the whole group is transformed to scale down
+        // zoomOutBackground.setAttribute('height', '1400');
+        // zoomOutBackground.setAttribute('class', 'svg-pan-zoom-control-background');
+        // zoomOut.appendChild(zoomOutBackground);
     
-        var zoomOutShape = document.createElementNS(SvgUtils.svgNS, 'path');
-        zoomOutShape.setAttribute('d', 'M1280 576v128q0 26 -19 45t-45 19h-896q-26 0 -45 -19t-19 -45v-128q0 -26 19 -45t45 -19h896q26 0 45 19t19 45zM1536 1120v-960q0 -119 -84.5 -203.5t-203.5 -84.5h-960q-119 0 -203.5 84.5t-84.5 203.5v960q0 119 84.5 203.5t203.5 84.5h960q119 0 203.5 -84.5 t84.5 -203.5z');
-        zoomOutShape.setAttribute('class', 'svg-pan-zoom-control-element');
-        zoomOut.appendChild(zoomOutShape);
+        // var zoomOutShape = document.createElementNS(SvgUtils.svgNS, 'path');
+        // zoomOutShape.setAttribute('d', 'M1280 576v128q0 26 -19 45t-45 19h-896q-26 0 -45 -19t-19 -45v-128q0 -26 19 -45t45 -19h896q26 0 45 19t19 45zM1536 1120v-960q0 -119 -84.5 -203.5t-203.5 -84.5h-960q-119 0 -203.5 84.5t-84.5 203.5v960q0 119 84.5 203.5t203.5 84.5h960q119 0 203.5 -84.5 t84.5 -203.5z');
+        // zoomOutShape.setAttribute('class', 'svg-pan-zoom-control-element');
+        // zoomOut.appendChild(zoomOutShape);
     
         return zoomOut
       }
