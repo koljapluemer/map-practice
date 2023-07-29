@@ -162,10 +162,15 @@ button:hover {
 }
 
 #zoom-level-buttons {
-  position: absolute;
+  /* position: absolute;
   left: 10px;
   bottom: 10px;
-  flex-direction: column;
+  flex-direction: column; */
+  display: none;
+}
+
+#svg-pan-zoom-controls {
+  padding: 20px;
 }
 
 #zoom-in, #zoom-out {
@@ -474,4 +479,8 @@ button:hover {
   #zoom-level-buttons {
     bottom: 50px;
   }
+}
+
+#svg-pan-zoom-zoom-in, #svg-pan-zoom-zoom-out  {
+  fill: black;
 }

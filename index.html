@@ -1002,7 +1002,7 @@
 
         <div class="mv2">
             <br>
-            <a href="https://github.com/koljapluemer/map-practice" >Learn More About This Project</a>
+            <a href="https://github.com/koljapluemer/map-practice">Learn More About This Project</a>
         </div>
 
     </div>
@@ -1010,9 +1010,34 @@
     <script data-goatcounter="https://worldmap.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 
-   <script src="./main.js"></script>
+    <script src="./main.js"></script>
+    <script src="./svg-pan-zoom.js"></script>
+
+    <script>
+
+
+        var panZoomTiger = svgPanZoom('#map', {
+            panEnabled: true
+            , controlIconsEnabled: true
+            , zoomEnabled: true
+            , dblClickZoomEnabled: true
+            , zoomScaleSensitivity: 0.2
+            , minZoom: 0.5
+            , maxZoom: 10
+            , fit: true
+            , center: true
+            , beforeZoom: function () { }
+            , onZoom: function () { }
+            , beforePan: function () { }
+            , onPan: function () { }
+        });
+
+
+    </script>
 
 </body>
+
+
 
 
 </html>

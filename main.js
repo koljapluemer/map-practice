@@ -538,116 +538,76 @@ function renderStreak() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+// document.addEventListener('DOMContentLoaded', function () {
 
-    // Variables to store the initial mouse position and viewBox values
-    let mouseX, mouseY, viewBoxX, viewBoxY, viewBoxWidth, viewBoxHeight;
+//     // Variables to store the initial mouse position and viewBox values
+//     let mouseX, mouseY, viewBoxX, viewBoxY, viewBoxWidth, viewBoxHeight;
 
-    // Function to handle the start of dragging
-    function handleDragStart(event) {
-        // Store the initial mouse position and current viewBox values
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-        const viewBox = elMap.getAttribute('viewBox').split(' ');
-        viewBoxX = parseFloat(viewBox[0]);
-        viewBoxY = parseFloat(viewBox[1]);
-        viewBoxWidth = parseFloat(viewBox[2]);
-        viewBoxHeight = parseFloat(viewBox[3]);
+//     // Function to handle the start of dragging
+//     function handleDragStart(event) {
+//         // Store the initial mouse position and current viewBox values
+//         mouseX = event.clientX;
+//         mouseY = event.clientY;
+//         const viewBox = elMap.getAttribute('viewBox').split(' ');
+//         viewBoxX = parseFloat(viewBox[0]);
+//         viewBoxY = parseFloat(viewBox[1]);
+//         viewBoxWidth = parseFloat(viewBox[2]);
+//         viewBoxHeight = parseFloat(viewBox[3]);
 
-        // Attach the drag event handlers to the document
-        document.addEventListener('mousemove', handleDrag);
-        document.addEventListener('mouseup', handleDragEnd);
-    }
+//         // Attach the drag event handlers to the document
+//         document.addEventListener('mousemove', handleDrag);
+//         document.addEventListener('mouseup', handleDragEnd);
+//     }
 
-    // Function to handle the dragging
-    function handleDrag(event) {
-        // Calculate the distance moved by the mouse
-        const deltaX = event.clientX - mouseX;
-        const deltaY = event.clientY - mouseY;
+//     // Function to handle the dragging
+//     function handleDrag(event) {
+//         // Calculate the distance moved by the mouse
+//         const deltaX = event.clientX - mouseX;
+//         const deltaY = event.clientY - mouseY;
 
-        // Update the viewBox based on the distance moved
-        const newViewBoxX = viewBoxX - deltaX;
-        const newViewBoxY = viewBoxY - deltaY;
+//         // Update the viewBox based on the distance moved
+//         const newViewBoxX = viewBoxX - deltaX;
+//         const newViewBoxY = viewBoxY - deltaY;
 
-        // Preserve the existing viewBox width and height
-        const newViewBoxWidth = viewBoxWidth;
-        const newViewBoxHeight = viewBoxHeight;
+//         // Preserve the existing viewBox width and height
+//         const newViewBoxWidth = viewBoxWidth;
+//         const newViewBoxHeight = viewBoxHeight;
 
-        elMap.setAttribute('viewBox', `${newViewBoxX} ${newViewBoxY} ${newViewBoxWidth} ${newViewBoxHeight}`);
-    }
+//         elMap.setAttribute('viewBox', `${newViewBoxX} ${newViewBoxY} ${newViewBoxWidth} ${newViewBoxHeight}`);
+//     }
 
-    // Function to handle the end of dragging
-    function handleDragEnd() {
-        // Remove the drag event handlers from the document
-        document.removeEventListener('mousemove', handleDrag);
-        document.removeEventListener('mouseup', handleDragEnd);
-    }
+//     // Function to handle the end of dragging
+//     function handleDragEnd() {
+//         // Remove the drag event handlers from the document
+//         document.removeEventListener('mousemove', handleDrag);
+//         document.removeEventListener('mouseup', handleDragEnd);
+//     }
 
-    // Attach the drag event handler to the SVG map element
-    elMap.addEventListener('mousedown', handleDragStart);
-});
+//     // Attach the drag event handler to the SVG map element
+//     elMap.addEventListener('mousedown', handleDragStart);
+// });
 
-// add viewport zoom to #zoom-out and #zoom-in:
-const elZoomOut = document.getElementById('zoom-out')
-elZoomOut.addEventListener('click', function () {
-    const viewBox = elMap.getAttribute('viewBox').split(' ');
-    const viewBoxX = parseFloat(viewBox[0]);
-    const viewBoxY = parseFloat(viewBox[1]);
-    const viewBoxWidth = parseFloat(viewBox[2]);
-    const viewBoxHeight = parseFloat(viewBox[3]);
-    elMap.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth * 1.1} ${viewBoxHeight * 1.1}`);
-})
+// // add viewport zoom to #zoom-out and #zoom-in:
+// const elZoomOut = document.getElementById('zoom-out')
+// elZoomOut.addEventListener('click', function () {
+//     const viewBox = elMap.getAttribute('viewBox').split(' ');
+//     const viewBoxX = parseFloat(viewBox[0]);
+//     const viewBoxY = parseFloat(viewBox[1]);
+//     const viewBoxWidth = parseFloat(viewBox[2]);
+//     const viewBoxHeight = parseFloat(viewBox[3]);
+//     elMap.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth * 1.1} ${viewBoxHeight * 1.1}`);
+// })
 
-const elZoomIn = document.getElementById('zoom-in')
-elZoomIn.addEventListener('click', function () {
-    const viewBox = elMap.getAttribute('viewBox').split(' ');
-    const viewBoxX = parseFloat(viewBox[0]);
-    const viewBoxY = parseFloat(viewBox[1]);
-    const viewBoxWidth = parseFloat(viewBox[2]);
-    const viewBoxHeight = parseFloat(viewBox[3]);
-    elMap.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth * 0.9} ${viewBoxHeight * 0.9}`);
-})
-
-
-
-// MOBILE
+// const elZoomIn = document.getElementById('zoom-in')
+// elZoomIn.addEventListener('click', function () {
+//     const viewBox = elMap.getAttribute('viewBox').split(' ');
+//     const viewBoxX = parseFloat(viewBox[0]);
+//     const viewBoxY = parseFloat(viewBox[1]);
+//     const viewBoxWidth = parseFloat(viewBox[2]);
+//     const viewBoxHeight = parseFloat(viewBox[3]);
+//     elMap.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth * 0.9} ${viewBoxHeight * 0.9}`);
+// })
 
 
-// allow panning of the viewport with finger on mobile devices
-elMap.addEventListener('touchstart', function (e) {
-    const touch = e.touches[0];
-    touchstartX = touch.clientX;
-    touchstartY = touch.clientY;
-    e.preventDefault();
-}
-    , false);
 
-elMap.addEventListener('touchmove', function (e) {
-    // watch out that this is not too accelerated
-    const touch = e.touches[0];
-    const touchX = touch.clientX;
-    const touchY = touch.clientY;
-    const viewBox = elMap.getAttribute('viewBox').split(' ');
-    const viewBoxX = parseFloat(viewBox[0]);
-    const viewBoxY = parseFloat(viewBox[1]);
-    const viewBoxWidth = parseFloat(viewBox[2]);
-    const viewBoxHeight = parseFloat(viewBox[3]);
-    const deltaX = touchstartX - touchX;
-    const deltaY = touchstartY - touchY;
-    const newViewBoxX = viewBoxX + deltaX;
-    const newViewBoxY = viewBoxY + deltaY;
-    elMap.setAttribute('viewBox', `${newViewBoxX} ${newViewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
-    e.preventDefault();
-}
-    , false);
 
-// allow zooming of the viewport with pinch on mobile devices
-elMap.addEventListener('touchstart', function (e) {
-    const touch0 = e.touches[0];
-    const touch1 = e.touches[1];
-    touchstartX0 = touch0.clientX;
-    touchstartY0 = touch0.clientY;
-    touchstartX1 = touch1.clientX;
-    touchstartY1 = touch1.clientY;
-    e.preventDefault();
-}, false);
