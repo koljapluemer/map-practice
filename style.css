@@ -421,10 +421,16 @@ button:hover {
     display: none;
   }
 
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
   #map-wrapper {
     width: 100vw;
     min-width: 100vw;
-    min-height: 100vh;
+    min-height: 99vh;
+    height: 99vh;
     padding: 0;
     margin: 0;
     border-radius: 0;

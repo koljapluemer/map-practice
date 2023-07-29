@@ -608,3 +608,46 @@ elZoomIn.addEventListener('click', function () {
     elMap.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth * 0.9} ${viewBoxHeight * 0.9}`);
 })
 
+
+
+// MOBILE
+
+
+// allow panning of the viewport with finger on mobile devices
+elMap.addEventListener('touchstart', function (e) {
+    const touch = e.touches[0];
+    touchstartX = touch.clientX;
+    touchstartY = touch.clientY;
+    e.preventDefault();
+}
+    , false);
+
+elMap.addEventListener('touchmove', function (e) {
+    // watch out that this is not too accelerated
+    const touch = e.touches[0];
+    const touchX = touch.clientX;
+    const touchY = touch.clientY;
+    const viewBox = elMap.getAttribute('viewBox').split(' ');
+    const viewBoxX = parseFloat(viewBox[0]);
+    const viewBoxY = parseFloat(viewBox[1]);
+    const viewBoxWidth = parseFloat(viewBox[2]);
+    const viewBoxHeight = parseFloat(viewBox[3]);
+    const deltaX = touchstartX - touchX;
+    const deltaY = touchstartY - touchY;
+    const newViewBoxX = viewBoxX + deltaX;
+    const newViewBoxY = viewBoxY + deltaY;
+    elMap.setAttribute('viewBox', `${newViewBoxX} ${newViewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
+    e.preventDefault();
+}
+    , false);
+
+// allow zooming of the viewport with pinch on mobile devices
+elMap.addEventListener('touchstart', function (e) {
+    const touch0 = e.touches[0];
+    const touch1 = e.touches[1];
+    touchstartX0 = touch0.clientX;
+    touchstartY0 = touch0.clientY;
+    touchstartX1 = touch1.clientX;
+    touchstartY1 = touch1.clientY;
+    e.preventDefault();
+}, false);
