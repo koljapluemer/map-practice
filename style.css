@@ -159,6 +159,7 @@ button:hover {
   top: 10px;
   right: 10px;
   flex-direction: column;
+  display: none;
 }
 
 #zoom-level-buttons {

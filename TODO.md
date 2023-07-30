@@ -6,6 +6,8 @@
 * add SEO stuff
 * consider implementing proper patterns like Observer into `main.js`, e.g. with stats (see `DOC.md`)
 * move panning/scrolling into its own file
+* find a better way to show the right country: circle was never good, and is now broken
+* see that I can reintroduce the quick zoom buttons
 
 ---
 
