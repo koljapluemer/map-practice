@@ -114,3 +114,12 @@ Honestly, the rest are (fairly) modular functions that either
 * handle panning/zooming
 
 These are somewhat non-DRY and somewhat overtly AI-generated, but they do their job and anyways they are not so integral to the whole thing. You can figure them out.
+
+
+### svg-pain-zoom.js
+
+The complete library, from the GitHub repo of the same name. I adapted the source code:
+* zoom in/out buttons are not created, but hook into my existing ones
+* rest button is hidden
+
+I may integrate this file into `main.js` at some point...or learn how to reference other js files..

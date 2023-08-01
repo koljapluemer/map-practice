@@ -8,6 +8,8 @@
 * move panning/scrolling into its own file
 * find a better way to show the right country: circle was never good, and is now broken
 * see that I can reintroduce the quick zoom buttons
+* find out how to adapt pan-zoom stuff to the library
+* make stats and links viewable on mobile
 
 ---
 
