@@ -116,10 +116,14 @@ Honestly, the rest are (fairly) modular functions that either
 These are somewhat non-DRY and somewhat overtly AI-generated, but they do their job and anyways they are not so integral to the whole thing. You can figure them out.
 
 
-### svg-pain-zoom.js
+### svg-pan-zoom.js
 
 The complete library, from the GitHub repo of the same name. I adapted the source code:
 * zoom in/out buttons are not created, but hook into my existing ones
 * rest button is hidden
 
-I may integrate this file into `main.js` at some point...or learn how to reference other js files..
+We actually load the library in the middle of `main.js`. The object is called `panZoomLibrary`, and is created after the circles are made (chapter **allcountries[] loop**). We use it then to do pan and zoom calls. The library, or rather the object's public API is logged in the console, so we know what we have. I swear I saw the documentation for the whole thing somewhere, but it proves impossible to find now. However you can also see the capabilities of the `svg-pan-zoom` by Ctrl+F for `prototype.` in `svg-pan-zoom.js`. 
+
+By the way, I think we need to load the library at that point (after the circle creation), because otherwise the pan will influence the SVG in fucky ways and the guidance circles for small islands will be at the wrong points. Now I am sure I could reverse engineer the coordinates of 'em with the panning and zooming that this library seems to do included, but why bother? 
+
+We could stop all this madness by saving the SVG the js dynamically generates everytime, but I guess we would loose some dynamicness (what if we want to have Lebanon a circle after all?) [see TODO].
