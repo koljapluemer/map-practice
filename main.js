@@ -330,6 +330,24 @@ document.getElementById('map').addEventListener('click', function (e) {
             }, 2000)
         } else {
             elFeedback.innerHTML = `Incorrect! That's ${clickedName}.`
+
+            // check if target country is in current viewport
+            function isElementInViewport(el) {
+                const svgRect = el.ownerSVGElement.getBoundingClientRect();
+                const pathRect = el.getBoundingClientRect();
+                return (
+                  pathRect.top >= svgRect.top &&
+                  pathRect.left >= svgRect.left &&
+                  pathRect.bottom <= svgRect.bottom &&
+                  pathRect.right <= svgRect.right
+                );
+              }
+            
+            console.log('isElementInViewport', isElementInViewport(targetCountry))
+            if (!isElementInViewport(targetCountry)) {
+                // reset view
+                panZoomLibrary.reset()
+            }
             elGradeLED.style.backgroundColor = '#b66b6b'
             targetCountry.classList.remove('incorrect', 'correct')
             targetCountry.classList.add('incorrect')
