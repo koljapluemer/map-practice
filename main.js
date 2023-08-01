@@ -179,6 +179,27 @@ for (let i = 0; i < allCountries.length; i++) {
     }
 }
 
+// now, we can load the zoom/pan library and set it up
+var panZoomLibrary = svgPanZoom('#map', {
+    panEnabled: true
+    , controlIconsEnabled: true
+    , zoomEnabled: true
+    , dblClickZoomEnabled: true
+    , zoomScaleSensitivity: 0.2
+    , minZoom: 0.5
+    , maxZoom: 10
+    , fit: true
+    , center: true
+    , beforeZoom: function () { }
+    , onZoom: function () { }
+    , beforePan: function () { }
+    , onPan: function () { }
+});
+
+// log all exposed properties and functions of panZoomTiger
+
+console.log('available pan-zoom-functions', panZoomLibrary);
+
 console.log('Confusion Dict', confusionDict)
 calculateAccuracy()
 elStatsUnits.innerHTML = statsTrainingUnits
