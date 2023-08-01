@@ -28,6 +28,9 @@ class TestExample(unittest.TestCase):
         self.assertTrue(map_element.is_displayed(), "Map element is not displayed")
 
     def test_correct_guess(self):
+        # first, toggle #tiny-country-check:
+        check_box = self.driver.find_element(By.ID, "tiny-country-check-wrapper")
+        check_box.click()
         # find #challengeCountry and extract the country to guess from innerHTML
         # then, find the path with an equivalent name!! property within #map (NOT id)
         # ensure that #stats-units is now 1:

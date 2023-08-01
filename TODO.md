@@ -7,6 +7,7 @@
 * see that I can reintroduce the quick zoom buttons
 * find out how to adapt pan-zoom stuff to the library
 * make stats and links viewable on mobile
+* make tests deterministic/find a way to make them independent of an unclickable small country being chosen
 
 ---
 
