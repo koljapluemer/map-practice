@@ -407,7 +407,7 @@ button:hover {
 .indicator {
   height: 100%;
   width: 200%;
-  background: #ececec;
+  background: #a8a8a8;
   border-radius: 15px;
   transform: translate3d(-75%, 0, 0);
   transition: transform 0.4s cubic-bezier(0.85, 0.05, 0.18, 1.35);
@@ -418,6 +418,7 @@ button:hover {
 
 .toggle-state:checked ~ .indicator {
   transform: translate3d(25%, 0, 0);
+  background: rgb(125, 214, 147);
 }
 
 /* completely change layout for mobile */
