@@ -482,3 +482,30 @@ button:hover {
   }
 }
 
+
+.finder-circle {
+  fill: rgba(32, 35, 83, 0.2);
+  opacity: 0;
+}
+
+/* animation for a svg circle to become gradually smaller by manipulating radius */
+@keyframes shrink {
+  0% {
+    r: 35;
+    display: block;
+    opacity: 1;
+  }
+  100% {
+    r: 0;
+    display: none;
+    opacity: 0;
+  }
+}
+
+.shrink {
+  animation: shrink 2s ease-in-out;
+}
+
+.hide {
+  display: none;
+}

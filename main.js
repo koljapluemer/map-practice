@@ -88,6 +88,21 @@ for (let i = 0; i < allCountries.length; i++) {
         document.getElementById('map').appendChild(circle);
         allCircles.push(circle)
     }
+    // around every country smaller than 30, create a larger circle
+    if (bbox.width < 3000 || bbox.height < 300) {
+        // create a <circle> element:
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', bbox.x + bbox.width / 2);
+        circle.setAttribute('cy', bbox.y + bbox.height / 2);
+       
+        circle.setAttribute('r', Math.min(90, Math.max(35, Math.max(bbox.width, bbox.height) / 2)))
+        circle.setAttribute('stroke-width', '1')
+        // set id to 'finder-' + country.getAttribute('name')
+        circle.setAttribute('id', 'finder-' + country.getAttribute('name'))
+        circle.classList.add('finder-circle', 'shrink', 'hide')
+        // set opacity 0
+        document.getElementById('map').appendChild(circle);
+    }
     // if we have not loaded data
     if (!localStorageDataExists) {
         countries.push({
@@ -314,43 +329,21 @@ document.getElementById('map').addEventListener('click', function (e) {
                 pickRandomChallenge()
             }, 2000)
         } else {
-            setTimeout(function () {
-                zoomToWorld();
-            }, 1000);
             elFeedback.innerHTML = `Incorrect! That's ${clickedName}.`
             elGradeLED.style.backgroundColor = '#b66b6b'
             targetCountry.classList.remove('incorrect', 'correct')
             targetCountry.classList.add('incorrect')
-            // check if the targetCountry is somewhat small: if ((bbox.width < 20 || bbox.height < 20
-            let targetIsSmall = false
-            for (let i = 0; i < allCountries.length; i++) {
-                const country = allCountries[i];
-                if (country.getAttribute('name') == targetCountry.getAttribute('name')) {
-                    const bbox = country.getBBox()
-                    if (bbox.width < 50 || bbox.height < 50) {
-                        targetIsSmall = true
-                    }
-                }
-            }
+            
+            // find svg circle with name finder-$targetCountry
+            const targetCircle = document.getElementById('finder-' + targetCountry.getAttribute('name'))
+            // set it visible, and remove and add in .shrink 
+            console.log('targetCircle', targetCircle)
+            targetCircle.classList.remove('shrink', 'hide')
+            targetCircle.classList.add('shrink')
 
-            if (targetIsSmall) {
-                // remove for now because panning library broke it...
-                // console.log('target is small');
-                // const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                // // set its center to the center of the bounding box:
-                // circle.setAttribute('cx', targetCountry.getBBox().x + targetCountry.getBBox().width / 2);
-                // circle.setAttribute('cy', targetCountry.getBBox().y + targetCountry.getBBox().height / 2);
-                // // set its radius to half the width of the bounding box:
-                // circle.setAttribute('r', '20')
-                // circle.classList.add('guide-circle')
-                // // append it to the <svg> element:
-                // document.getElementById('map').appendChild(circle);
-                // setTimeout(function () {
-                //     circle.remove()
-                // }, 2000)
-            }
             clickedCountry.classList.add('selected')
             setTimeout(function () {
+                targetCircle.classList.add('hide')
                 clickedCountry.classList.remove('selected')
                 pickRandomChallenge()
             }, 2001)
