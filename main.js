@@ -405,7 +405,12 @@ const elZoomMiddleAmerica = document.getElementById('zoom-middle-america')
 elZoomMiddleAmerica.addEventListener('click', function () {
     // const elCuba = document.querySelector('path[name="Montserrat"]')
     // const bbox = elCuba.getBBox()
-    elMap.setAttribute('viewBox', `220 380 90 70`)
+    // elMap.setAttribute('viewBox', `220 380 90 70`)
+    panZoomLibrary.zoom(3);
+    panZoomLibrary.pan({
+        x: 0,
+        y: 0
+    });
     // hide all circles 
     for (let i = 0; i < allCircles.length; i++) {
         const currentCircle = allCircles[i]
@@ -420,7 +425,12 @@ elZoomWorld.addEventListener('click', function () {
 
 const elZoomMediterranean = document.getElementById('zoom-mediterranean')
 elZoomMediterranean.addEventListener('click', function () {
-    elMap.setAttribute('viewBox', `450 265 200 130`)
+    // elMap.setAttribute('viewBox', `450 265 200 130`)
+    panZoomLibrary.zoom(3);
+    panZoomLibrary.pan({
+        x: 0,
+        y: 0
+    });
     // show all circles 
     for (let i = 0; i < allCircles.length; i++) {
         const currentCircle = allCircles[i]
@@ -429,7 +439,8 @@ elZoomMediterranean.addEventListener('click', function () {
 })
 
 function zoomToWorld() {
-    elMap.setAttribute('viewBox', `0 0 1010 666`)
+    console.log('zooming to world/resetting')
+    panZoomLibrary.reset()
     // show all circles 
     for (let i = 0; i < allCircles.length; i++) {
         const currentCircle = allCircles[i]
@@ -443,7 +454,14 @@ elZoomSEA.addEventListener('click', function () {
 })
 
 function zoomToSEA() {
-    elMap.setAttribute('viewBox', `720 380 200 130`)
+    // elMap.setAttribute('viewBox', `720 380 200 130`)
+    panZoomLibrary.zoomAtPoint(
+        5,
+        {
+            x: 520,
+            y: 400
+        }
+    );
     // show all circles 
     for (let i = 0; i < allCircles.length; i++) {
         const currentCircle = allCircles[i]
@@ -453,7 +471,12 @@ function zoomToSEA() {
 
 const elZoomAfrica = document.getElementById('zoom-africa')
 elZoomAfrica.addEventListener('click', function () {
-    elMap.setAttribute('viewBox', `380 400 300 195`)
+    // elMap.setAttribute('viewBox', `380 400 300 195`)
+    panZoomLibrary.zoom(3);
+    panZoomLibrary.pan({
+        x: 850,
+        y: 0
+    });
     // show all circles 
     for (let i = 0; i < allCircles.length; i++) {
         const currentCircle = allCircles[i]
@@ -463,7 +486,12 @@ elZoomAfrica.addEventListener('click', function () {
 
 const elZoomOceania = document.getElementById('zoom-oceania')
 elZoomOceania.addEventListener('click', function () {
-    elMap.setAttribute('viewBox', `830 430 200 130`)
+    // elMap.setAttribute('viewBox', `830 430 200 130`)
+    panZoomLibrary.zoom(3);
+    panZoomLibrary.pan({
+        x: 0,
+        y: 0
+    });
     // show all circles 
     for (let i = 0; i < allCircles.length; i++) {
         const currentCircle = allCircles[i]
