@@ -18,7 +18,7 @@ class TestExample(unittest.TestCase):
 
     def test_page_title(self):
         # Test for the title of the page
-        expected_title = "Map Practice"
+        expected_title = "Map Practice | A Game To Learn Placing Countries"
         actual_title = self.driver.title
         self.assertEqual(actual_title, expected_title, f"Expected title: {expected_title}, Actual title: {actual_title}")
 
