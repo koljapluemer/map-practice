@@ -1,3 +1,26 @@
+// const supabaseUrl = 'https://nmpabtmidtpyqlqdpnif.supabase.co'
+// const supabaseKey = process.env.SUPABASE_KEY
+// const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+
+let allowDataCollection = true
+// check if allowDataCollection is set to true
+if (localStorage.getItem('allowDataCollection') == 'true') {
+    allowDataCollection = true
+} else if (localStorage.getItem('allowDataCollection') == 'false') {
+    allowDataCollection = false
+}
+
+// set toggle accordingly
+const elToggleDataCollection = document.getElementById('data-check')
+if (allowDataCollection) {
+    elToggleDataCollection.checked = true
+} else {
+    elToggleDataCollection.checked = false
+}
+
+let nrOfsItemsSinceDataSend = 0
+
+
 // get names by getting the name property of every path in #math
 let targetCountry = {}
 const elChallengeCountry = document.getElementById('challengeCountry')
@@ -94,7 +117,7 @@ for (let i = 0; i < allCountries.length; i++) {
         const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         circle.setAttribute('cx', bbox.x + bbox.width / 2);
         circle.setAttribute('cy', bbox.y + bbox.height / 2);
-       
+
         circle.setAttribute('r', Math.min(90, Math.max(35, Math.max(bbox.width, bbox.height) / 2)))
         circle.setAttribute('stroke-width', '1')
         // set id to 'finder-' + country.getAttribute('name')
@@ -340,13 +363,13 @@ document.getElementById('map').addEventListener('click', function (e) {
                 const svgRect = el.ownerSVGElement.getBoundingClientRect();
                 const pathRect = el.getBoundingClientRect();
                 return (
-                  pathRect.top >= svgRect.top &&
-                  pathRect.left >= svgRect.left &&
-                  pathRect.bottom <= svgRect.bottom &&
-                  pathRect.right <= svgRect.right
+                    pathRect.top >= svgRect.top &&
+                    pathRect.left >= svgRect.left &&
+                    pathRect.bottom <= svgRect.bottom &&
+                    pathRect.right <= svgRect.right
                 );
-              }
-            
+            }
+
             console.log('isElementInViewport', isElementInViewport(targetCountry))
             if (!isElementInViewport(targetCountry)) {
                 // reset view
@@ -355,7 +378,7 @@ document.getElementById('map').addEventListener('click', function (e) {
             elGradeLED.style.backgroundColor = '#b66b6b'
             targetCountry.classList.remove('incorrect', 'correct')
             targetCountry.classList.add('incorrect')
-            
+
             // find svg circle with name finder-$targetCountry
             const targetCircle = document.getElementById('finder-' + targetCountry.getAttribute('name'))
             // set it visible, and remove and add in .shrink 
@@ -374,6 +397,8 @@ document.getElementById('map').addEventListener('click', function (e) {
 })
 
 function pickRandomChallenge() {
+    // send data to backend 
+    sendDataToBackend()
     // check whether to include tiny countries by checking state of #tiny-country-check
     const includeTinyCountries = document.getElementById('tiny-country-check').checked
     let countriesToPickFrom = countries
@@ -600,3 +625,25 @@ function renderStreak() {
         elStatsGlobalStreak.appendChild(elProgressBarIterator)
     }
 }
+
+
+async function sendDataToBackend() {
+    // trigger Netlify function send-data.js
+    if (allowDataCollection) {
+        // send countries to backend
+    
+        const response = await fetch('/.netlify/functions/send-data', {
+            method: 'POST',
+            body: JSON.stringify({"hi": "foo"}), // Convert the object to a JSON string
+        });
+        
+        const data = await response.json();
+        console.log(data);
+    }
+    console.log('sending data');
+}
+
+// const dataForBody = JSON.stringify({
+//     countries: countries,
+// })
+
