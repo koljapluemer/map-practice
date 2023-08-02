@@ -1,26 +1,4 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-import { SUPABASE_KEY } from './config.js'
-const supabaseUrl = 'https://nmpabtmidtpyqlqdpnif.supabase.co'
-const supabase = createClient(supabaseUrl, SUPABASE_KEY)
-
-let allowDataCollection = true
-// check if allowDataCollection is set to true
-if (localStorage.getItem('allowDataCollection') == 'true') {
-    allowDataCollection = true
-} else if (localStorage.getItem('allowDataCollection') == 'false') {
-    allowDataCollection = false
-}
-
-// set toggle accordingly
-const elToggleDataCollection = document.getElementById('data-check')
-if (allowDataCollection) {
-    elToggleDataCollection.checked = true
-} else {
-    elToggleDataCollection.checked = false
-}
-
-let nrOfsItemsSinceDataSend = 0
 
 // get names by getting the name property of every path in #math
 let targetCountry = {}
@@ -399,8 +377,6 @@ document.getElementById('map').addEventListener('click', function (e) {
 })
 
 function pickRandomChallenge() {
-    // send data to backend 
-    sendDataToBackend()
     // check whether to include tiny countries by checking state of #tiny-country-check
     const includeTinyCountries = document.getElementById('tiny-country-check').checked
     let countriesToPickFrom = countries
@@ -625,23 +601,5 @@ function renderStreak() {
         elProgressBarIterator.style.width = width + 'px'
         elProgressBarIterator.style.minWidth = width + 'px'
         elStatsGlobalStreak.appendChild(elProgressBarIterator)
-    }
-}
-
-
-async function sendDataToBackend() {
-    // trigger Netlify function send-data.js
-    if (allowDataCollection) {
-        console.log('sending data');
-        try {
-            const { data, error } = await supabase
-                .from('learning_data')
-                .insert([
-                    { data_set: countries },
-                ])
-        }
-        catch (error) {
-            console.log(error)
-        }
     }
 }
