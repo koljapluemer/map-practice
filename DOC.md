@@ -127,3 +127,17 @@ We actually load the library in the middle of `main.js`. The object is called `p
 By the way, I think we need to load the library at that point (after the circle creation), because otherwise the pan will influence the SVG in fucky ways and the guidance circles for small islands will be at the wrong points. Now I am sure I could reverse engineer the coordinates of 'em with the panning and zooming that this library seems to do included, but why bother? 
 
 We could stop all this madness by saving the SVG the js dynamically generates everytime, but I guess we would loose some dynamicness (what if we want to have Lebanon a circle after all?) [see TODO].
+
+## Logging
+
+I attempted to put in learning data logging later. 
+
+Problem is: Calling anything w/o exposing an API key - which isn't actually a threat, but may lead to autoremoval on GitHub and stuff. Also crawler finding it and subsequent spam. 
+
+Nothing worked. Pure JSON backend is to crude, because no idea how I would not overwrite the old db continously. Actual logging frameworks always mean $$$ and definitely npm. 
+
+Netlify functions are horrible with Vanilla JS. Merely getting them to work is something. Then they don't have any libraries to do a god damn API request. XHR is apparently not available. Neither is fetch, because that apparently only exists in random node versions. Nor is axios, which is just a library. Which you can't install w/o converting the whole thing into a damn npm project, which is a hassle. Injecting an env var in the Netlify build like [here](https://simonplend.com/how-to-securely-call-an-authenticated-api-from-your-front-end/) didn't work either (it tried calling my supabase API with 'API_KEY', not the actual API key. Not sure why).
+
+Supabase setup itself was decently quick after I figured out how to make it work with a CDN.
+
+Next time I reckon I just build an API myself, and secure it reasonably w/ access tokens or something. Or just go Vue/Node after all and get some logging library.
