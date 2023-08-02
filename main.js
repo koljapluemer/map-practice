@@ -1,6 +1,8 @@
-// const supabaseUrl = 'https://nmpabtmidtpyqlqdpnif.supabase.co'
-// const supabaseKey = process.env.SUPABASE_KEY
-// const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+import { SUPABASE_KEY } from './config.js'
+const supabaseUrl = 'https://nmpabtmidtpyqlqdpnif.supabase.co'
+const supabase = createClient(supabaseUrl, SUPABASE_KEY)
 
 let allowDataCollection = true
 // check if allowDataCollection is set to true
@@ -283,7 +285,7 @@ document.getElementById('map').addEventListener('click', function (e) {
             grade: guessedRight ? 1 : 0,
             date: new Date(),
             mixedUpWith: guessedRight ? null : clickedName,
-            thinkingTime: thinkingTime
+            thinkingTime: thinkingTime,
         })
 
         // if correct, double interval, if incorrect, half it (minimum 10)
@@ -630,20 +632,16 @@ function renderStreak() {
 async function sendDataToBackend() {
     // trigger Netlify function send-data.js
     if (allowDataCollection) {
-        // send countries to backend
-    
-        const response = await fetch('/.netlify/functions/send-data', {
-            method: 'POST',
-            body: JSON.stringify({"hi": "foo"}), // Convert the object to a JSON string
-        });
-        
-        const data = await response.json();
-        console.log(data);
+        console.log('sending data');
+        try {
+            const { data, error } = await supabase
+                .from('learning_data')
+                .insert([
+                    { data_set: countries },
+                ])
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
-    console.log('sending data');
 }
-
-// const dataForBody = JSON.stringify({
-//     countries: countries,
-// })
-
