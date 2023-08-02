@@ -10,6 +10,14 @@ html {
   color: #333;
 }
 
+#mobile {
+  display: none;
+}
+
+#construstion-img {
+  max-width: 90vw;
+}
+
 code {
   white-space: pre-wrap;
   max-width: 100%;
@@ -20,22 +28,6 @@ details, summary {
   padding: 0;
 }
 
-#fab {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: none;
-  place-items: center;
-  width: 50px;
-  height: 50px;
-  padding: 0;
-  z-index: 9999;
-}
-
-#fab > .icon {
-  width: 45px;
-  height: 45px;
-}
 
 #map {
   width: 100%;
@@ -461,6 +453,14 @@ button:hover {
     flex-direction: column;
     max-width: 95vw;
     margin: 0;
+  }
+
+  #mobile {
+    display: block;
+  }
+
+  #desktop {
+    display: none;
   }
 
   html, body {
