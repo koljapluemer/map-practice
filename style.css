@@ -312,6 +312,7 @@ button:hover {
   max-width: min(95vw, 1200px);
   flex-direction: column;
   align-items: flex-start;
+  margin: 24px auto;
   /* background: #ecf0f3; */
 }
 
@@ -482,7 +483,6 @@ button:hover {
 
   #settings {
     max-width: 95vw;
-    margin: 0;
   }
 
   #challenge-wrapper {
@@ -546,3 +546,8 @@ button:hover {
   display: none;
 }
 
+#tweet-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

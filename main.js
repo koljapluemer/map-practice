@@ -7,6 +7,7 @@ const elFeedback = document.getElementById('feedback')
 const elMap = document.getElementById('map')
 const elGradeLED = document.getElementById('gradeLED')
 const allCountries = document.getElementById('map').getElementsByTagName('path');
+const elTweet = document.getElementById('tweet')
 console.log('countries', allCountries);
 let countries = []
 let allCircles = []
@@ -22,6 +23,7 @@ let statsThinkingTimes = []
 let countriesNrOfFailuresDict = {};
 let confusionDict = {};
 let nemesisDict = {};
+let nemesis = '';
 // see if we have the nr of training units last session in localstorage
 let statsTrainingUnitsLastSession = localStorage.getItem('statsTrainingUnitsThisSession') ? localStorage.getItem('statsTrainingUnitsThisSession') : 'N/A'
 // define stats elements
@@ -269,6 +271,7 @@ document.getElementById('map').addEventListener('click', function (e) {
         // if correct, double interval, if incorrect, half it (minimum 10)
         if (guessedRight) {
             statsGlobalStreak += 1;
+            generateTwitterLink()
             correctGuesses += 1;
             // set this country's nemesisDict entry to 0
             nemesisDict[targetCountryObject.name] = 0
@@ -304,6 +307,7 @@ document.getElementById('map').addEventListener('click', function (e) {
             console.log('new change in nemesis dict', nemesisDict)
             renderFailureAndConfusion()
             statsGlobalStreak = 0;
+            generateTwitterLink()
             incorrectGuesses += 1;
             renderStreak();
             targetCountryObject.interval /= 2
@@ -423,6 +427,7 @@ function pickRandomChallenge() {
     }).length
     // set value property of elStatsDue progress to 255-due:
     elStatsDue.value = 255 - countriesDue
+    generateTwitterLink()
 
     // handle no due countries
     if (countriesDue.length == 0) {
@@ -583,11 +588,11 @@ function renderFailureAndConfusion() {
 
 
     // find the highest value in the nemesisDict, using reduce
-    const nemesis = Object.keys(nemesisDict).reduce(function (a, b) {
+    nemesis = Object.keys(nemesisDict).reduce(function (a, b) {
         return nemesisDict[a] > nemesisDict[b] ? a : b
     })
     elStatsNemesis.innerHTML = nemesis
-
+    generateTwitterLink()
 }
 
 function renderStreak() {
@@ -603,3 +608,15 @@ function renderStreak() {
         elStatsGlobalStreak.appendChild(elProgressBarIterator)
     }
 }
+
+function generateTwitterLink() {
+    // dynamically generate from
+    // I&#39;m playing World Map Practice 🌍 &#010;🧠 Memorized Countries: 35 out of 255&#010;👑 Streak: 3 &#010;💀 My Nemesis: Guayana
+    // replace 35, 3, Guayana
+    const memorizedCountries = elStatsDue.value;
+    const streak = statsGlobalStreak;
+    const tweetString = `I'm playing World Map Practice:\n🧠 Memorized Countries: ${memorizedCountries} out of 255\n🏃‍♀️ Practiced ${statsTrainingUnits} times\n🎯 Accuracy: ${elStatsAccuracy.innerHTML}\n👑 Streak: ${streak} \n💀 Having a hard time with: ${nemesis}\n`
+    console.log(tweetString)
+    // set data-text of #tweet
+    elTweet.setAttribute('data-text', tweetString)
+}      
