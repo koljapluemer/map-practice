@@ -60,6 +60,42 @@ const elStatsMostConfusedA = document.getElementById('stats-most-confused-a')
 const elStatsMostConfusedB = document.getElementById('stats-most-confused-b')
 const elStatsNemesis = document.getElementById('stats-nemesis')
 
+let showGame = true
+// handle fab button which toggles game and settings:
+// either show #map-wrapper, or #settings, #stats and #feedback-wrapper
+// also handle the button children toggle-to-settings and toggle-to-game
+const elGame = document.getElementById('map-wrapper')
+const elSettings = document.getElementById('settings')
+const elStats = document.getElementById('stats')
+const elFeedbackWrapper = document.getElementById('feedback-wrapper')
+const elChallengeWrapper = document.getElementById('challenge-wrapper')
+
+const elFab = document.getElementById('fab')
+const elToggleToSettings = document.getElementById('toggle-to-settings')
+const elToggleToGame = document.getElementById('toggle-to-game')
+
+elFab.addEventListener('click', () => {
+    showGame = !showGame
+    if (showGame) {
+        elGame.style.display = 'block'
+        elSettings.style.display = 'none'
+        elStats.style.display = 'none';
+        elFeedbackWrapper.style.visibility = 'visible'
+        elToggleToSettings.style.display = 'block'
+        elToggleToGame.style.display = 'none'
+        elChallengeWrapper.style.display = 'block'
+    } else {
+        elGame.style.display = 'none'
+        elSettings.style.display = 'block'
+        elStats.style.display = 'flex';
+        elFeedbackWrapper.style.visibility = 'hidden' 
+        elToggleToSettings.style.display = 'none'
+        elToggleToGame.style.display = 'block'
+        elChallengeWrapper.style.display = 'none'
+    }
+})
+
+
 // load countries from localStorage (if it exists)
 if (localStorage.getItem('countries')) {
     countries = JSON.parse(localStorage.getItem('countries'))
