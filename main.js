@@ -8,7 +8,6 @@ const elMap = document.getElementById('map')
 const elGradeLED = document.getElementById('gradeLED')
 const allCountries = document.getElementById('map').getElementsByTagName('path');
 const elTweet = document.getElementById('tweet')
-console.log('countries', allCountries);
 let countries = []
 let allCircles = []
 let localStorageDataExists = false
@@ -46,7 +45,6 @@ if (localStorage.getItem('countries')) {
     localStorageDataExists = true
 }
 
-console.log('countries after load from local', countries)
 
 // for every path, add a <circle> at its center
 for (let i = 0; i < allCountries.length; i++) {
@@ -130,7 +128,7 @@ for (let i = 0; i < allCountries.length; i++) {
 
         // if the last repetition on the country has a grade of 1, color a light green, if its 0, color a light red
         if (countryObject.repetitions.length > 0) {
-            console.log('object has repetitions')
+
             const lastRepetition = countryObject.repetitions[countryObject.repetitions.length - 1]
             // also check if there is a circle with the same name
             const matchingCircles = allCircles.filter(function (circle) {
@@ -216,15 +214,13 @@ var panZoomLibrary = svgPanZoom('#map', {
     , onPan: function () {
         // get the actual pan
         const pan = panZoomLibrary.getPan();
-        console.log('pan', pan)
+
     }
 });
 
 // log all exposed properties and functions of panZoomTiger
 
-console.log('available pan-zoom-functions', panZoomLibrary);
 
-console.log('Confusion Dict', confusionDict)
 calculateAccuracy()
 elStatsUnits.innerHTML = statsTrainingUnits
 elStatsUnitsLastSession.innerHTML = statsTrainingUnitsLastSession
@@ -234,7 +230,7 @@ document.getElementById('map').addEventListener('click', function (e) {
 
     // if we're not currently awaiting a click, return instantly
     if (elFeedback.innerHTML != 'Waiting for click...') {
-        console.log('aborting..')
+
         return;
     }
     // find the path that was clicked on, and log its html 'name' property:
@@ -288,7 +284,7 @@ document.getElementById('map').addEventListener('click', function (e) {
                     break;
                 }
             }
-            console.log('streak:', streak)
+
 
             targetCountryObject.interval *= Math.pow(2, streak)
             // special case when the country is new: set the interval to two minutes immediately
@@ -301,10 +297,10 @@ document.getElementById('map').addEventListener('click', function (e) {
             // same for confusion dict
             const confusionKey = targetCountryObject.name + '-' + clickedName
             confusionDict[confusionKey] = confusionDict[confusionKey] ? confusionDict[confusionKey] + 1 : 1
-            console.log('new change in failure dict', countriesNrOfFailuresDict)
-            console.log('new change in confusion dict', confusionDict)
+
+
             nemesisDict[targetCountryObject.name] = nemesisDict[targetCountryObject.name] ? nemesisDict[targetCountryObject.name] + 1 : 1
-            console.log('new change in nemesis dict', nemesisDict)
+
             renderFailureAndConfusion()
             statsGlobalStreak = 0;
             generateTwitterLink()
@@ -320,8 +316,6 @@ document.getElementById('map').addEventListener('click', function (e) {
         }
         targetCountryObject.dueAt = new Date(new Date().getTime() + targetCountryObject.interval * 1000)
 
-
-        console.log('obj now', targetCountryObject);
         // save obj to localStorage
         localStorage.setItem('countries', JSON.stringify(countries))
 
@@ -354,7 +348,7 @@ document.getElementById('map').addEventListener('click', function (e) {
                 );
             }
 
-            console.log('isElementInViewport', isElementInViewport(targetCountry))
+
             if (!isElementInViewport(targetCountry)) {
                 // reset view
                 panZoomLibrary.reset()
@@ -366,7 +360,7 @@ document.getElementById('map').addEventListener('click', function (e) {
             // find svg circle with name finder-$targetCountry
             const targetCircle = document.getElementById('finder-' + targetCountry.getAttribute('name'))
             // set it visible, and remove and add in .shrink 
-            console.log('targetCircle', targetCircle)
+
             targetCircle.classList.remove('shrink', 'hide')
             targetCircle.classList.add('shrink')
 
@@ -396,7 +390,7 @@ function pickRandomChallenge() {
             }
             return true
         })
-        console.log(`got ${countriesToPickFrom.length} countries now`)
+
     }
     zoomToWorld();
     elFeedback.innerHTML = 'Waiting for click...'
@@ -405,18 +399,18 @@ function pickRandomChallenge() {
     // with 80% chance, try to find something that was seen before first
     let dueCountries = []
     if (Math.random() < 0.8) {
-        console.log('going for old learning item first')
+
         dueCountries = countriesToPickFrom.filter(function (country) {
             if (country.dueAt == null) {
                 return false;
             }
             return country.dueAt.getTime() < new Date()
         })
-        console.log('old learning items that are due:', dueCountries)
+
     }
 
     if (dueCountries.length == 0) {
-        console.log('picking new learning item')
+
         dueCountries = countriesToPickFrom.filter(function (country) {
             return country.dueAt == null
         })
@@ -447,9 +441,6 @@ pickRandomChallenge()
 const elZoomMiddleAmerica = document.getElementById('zoom-middle-america')
 // implement zooming the svg around Element with name `Cuba`
 elZoomMiddleAmerica.addEventListener('click', function () {
-    // const elCuba = document.querySelector('path[name="Montserrat"]')
-    // const bbox = elCuba.getBBox()
-    // elMap.setAttribute('viewBox', `220 380 90 70`)
     panZoomLibrary.resetZoom()
     panZoomLibrary.resetPan()
     panZoomLibrary.zoom(9)
@@ -457,13 +448,7 @@ elZoomMiddleAmerica.addEventListener('click', function () {
         x: -1642,
         y: -2832
     });
-    // panZoomLibrary.zoomAtPointBy(
-    //     3,
-    //     {
-    //         x: 0,
-    //         y: 0
-    //     }
-    // )
+
     // hide all circles 
     for (let i = 0; i < allCircles.length; i++) {
         const currentCircle = allCircles[i]
@@ -492,7 +477,7 @@ elZoomMediterranean.addEventListener('click', function () {
 })
 
 function zoomToWorld() {
-    console.log('zooming to world/resetting')
+
     panZoomLibrary.reset()
     // show all circles 
     for (let i = 0; i < allCircles.length; i++) {
@@ -625,7 +610,7 @@ function generateTwitterLink() {
     const memorizedCountries = elStatsDue.value;
     const streak = statsGlobalStreak;
     const tweetString = `I'm playing World Map Practice:\n🧠 Memorized Countries: ${memorizedCountries} out of 255\n🏃‍♀️ Practiced ${statsTrainingUnits} times\n🎯 Accuracy: ${elStatsAccuracy.innerHTML}\n👑 Streak: ${streak} \n💀 Having a hard time with: ${nemesis}\n`
-    console.log(tweetString)
+
     // set data-text of #tweet
     elTweet.setAttribute('data-text', tweetString)
 }      

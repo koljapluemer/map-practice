@@ -9,6 +9,7 @@
 * bug: when nemesis dict is all 0, something will still be nemesis (likely similar with the others)
 * check if due `<progress>` works correctly
 * extend testing
+* explore why quick zoom works - sometimes -
 
 ## COULD
 
