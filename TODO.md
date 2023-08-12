@@ -1,17 +1,14 @@
 ## MUST
 
 * see that both circle and country are set to correct/incorrect (only one of them is clicked) [when first loading the countries this already works]
-* make stats and links viewable on mobile
 
 ## SHOULD
 
 * check the [HN thread](https://news.ycombinator.com/item?id=36913829) and convert all reports into user stories
-* see if this lags on mobile or if its my phone
 * make the "overlapping circles" interaction in the Caribbean more fun somehow?
 * bug: when nemesis dict is all 0, something will still be nemesis (likely similar with the others)
 * check if due `<progress>` works correctly
 * extend testing
-
 
 ## COULD
 

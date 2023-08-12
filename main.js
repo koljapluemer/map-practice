@@ -450,11 +450,20 @@ elZoomMiddleAmerica.addEventListener('click', function () {
     // const elCuba = document.querySelector('path[name="Montserrat"]')
     // const bbox = elCuba.getBBox()
     // elMap.setAttribute('viewBox', `220 380 90 70`)
+    panZoomLibrary.resetZoom()
+    panZoomLibrary.resetPan()
     panZoomLibrary.zoom(9)
     panZoomLibrary.pan({
-        x: -1351,
-        y: -2403
+        x: -1642,
+        y: -2832
     });
+    // panZoomLibrary.zoomAtPointBy(
+    //     3,
+    //     {
+    //         x: 0,
+    //         y: 0
+    //     }
+    // )
     // hide all circles 
     for (let i = 0; i < allCircles.length; i++) {
         const currentCircle = allCircles[i]
