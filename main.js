@@ -395,7 +395,7 @@ function pickRandomChallenge() {
         if (isBeginningOfSession) {
             //  exclude nemesisDict entries:
             countriesToPickFrom = countriesToPickFrom.filter(function (country) {
-                return nemesisDict[country.name] < 2
+                return nemesisDict[country.name] < 2 || !nemesisDict[country.name] 
             })
         }
     }
