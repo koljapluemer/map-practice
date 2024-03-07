@@ -378,7 +378,9 @@ function pickRandomChallenge() {
     // check whether to include tiny countries by checking state of #tiny-country-check
     const includeTinyCountries = document.getElementById('tiny-country-check').checked
     let countriesToPickFrom = countries
-    if (!includeTinyCountries) {
+    // also, if it's beginning of the session (less than 10 training units), include both tiny countries and hard countries
+    const isBeginningOfSession = statsTrainingUnitsThisSession < 10
+    if (!includeTinyCountries || isBeginningOfSession) {
         // exclude everything that's included in the allCircles list
         // check by matching country.name against the the .name property of the objects in allCircles
         countriesToPickFrom = countries.filter(function (country) {
@@ -390,42 +392,55 @@ function pickRandomChallenge() {
             }
             return true
         })
-
+        if (isBeginningOfSession) {
+            //  exclude nemesisDict entries:
+            countriesToPickFrom = countriesToPickFrom.filter(function (country) {
+                return nemesisDict[country.name] < 2
+            })
+        }
     }
     zoomToWorld();
     elFeedback.innerHTML = 'Waiting for click...'
     elGradeLED.style.backgroundColor = '#e0e0e0'
     // pick from countries array, where dueAt is in the past or null
     // with 80% chance, try to find something that was seen before first
+    // this logic is a bit bad (had the same problem with q) — because we have a preferred set, but also have to handle the case that one is empty
     let dueCountries = []
-    if (Math.random() < 0.8) {
 
-        dueCountries = countriesToPickFrom.filter(function (country) {
+    function getDueCountries(countriesToPickFrom) {
+        return countriesToPickFrom.filter(function (country) {
             if (country.dueAt == null) {
                 return false;
             }
-            return country.dueAt.getTime() < new Date()
+            const isDue = country.dueAt.getTime() < new Date()
+            return isDue
         })
-
     }
+
+    if (Math.random() < 0.8) {
+        dueCountries = getDueCountries(countriesToPickFrom)
+    }
+
 
     if (dueCountries.length == 0) {
-
-        dueCountries = countriesToPickFrom.filter(function (country) {
+        const newCountries = countriesToPickFrom.filter(function (country) {
             return country.dueAt == null
         })
+        dueCountries = newCountries;
     }
 
-    const countriesDue = countriesToPickFrom.filter(function (country) {
-        return country.dueAt == null || country.dueAt < new Date()
-    }).length
+    // if still none, we're either genuinely done, or we need to get a previously seen after all
+    if (dueCountries.length == 0) {
+        dueCountries = getDueCountries(countriesToPickFrom)
+    }
+
     // set value property of elStatsDue progress to 255-due:
-    elStatsDue.value = 255 - countriesDue
+    elStatsDue.value = 255 - dueCountries.length
     generateTwitterLink()
 
     // handle no due countries
-    if (countriesDue.length == 0) {
-        alert('I think you are done for now? This is unexpected. Something will probably break. Try reloading?')
+    if (dueCountries.length == 0) {
+        alert('You are done for now. Not bad.')
         return;
     }
 

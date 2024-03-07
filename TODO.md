@@ -14,7 +14,6 @@
 ## COULD
 
 * save the SVG that's generated everytime, and just load that statically (=no more circle generation on load)
-* zoom for Europe?
 * consider implementing proper patterns like Observer into `main.js`, e.g. with stats (see `DOC.md`)
 * make a mobile version, start with stage MVP and get it running *smoothly*
 * fun facts for countries when guessed correctly?
