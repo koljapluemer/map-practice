@@ -1,1 +1,0 @@
-/home/b/MEGA/Obsidian/Main/Projects/Map Practice.md

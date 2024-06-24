@@ -395,7 +395,7 @@ function pickRandomChallenge() {
         if (isBeginningOfSession) {
             //  exclude nemesisDict entries:
             countriesToPickFrom = countriesToPickFrom.filter(function (country) {
-                return nemesisDict[country.name] < 2 || !nemesisDict[country.name] 
+                return nemesisDict[country.name] < 2 || !nemesisDict[country.name]
             })
         }
     }
@@ -600,8 +600,10 @@ function renderFailureAndConfusion() {
     nemesis = Object.keys(nemesisDict).reduce(function (a, b) {
         return nemesisDict[a] > nemesisDict[b] ? a : b
     })
-    elStatsNemesis.innerHTML = nemesis
-    generateTwitterLink()
+    if (nemesisDict[nemesis] > 0) {
+        elStatsNemesis.innerHTML = nemesis
+        generateTwitterLink()
+    }
 }
 
 function renderStreak() {

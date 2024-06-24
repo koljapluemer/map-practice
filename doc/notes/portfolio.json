@@ -1,0 +1,26 @@
+{
+  "title": "Map Practice",
+  "subtitle": "A Spaced Repetition web game about placing countries",
+  "imageAltProperty": "Screenshot of the web game showing a world map, a country to click on, and several statistics",
+  "showAboveFold": true,
+  "showOnPortfolio": true,
+  "status": "mvp",
+  "links": [
+    {
+      "title": "Play Now",
+      "url": "https://learn-worldmap.netlify.app/"
+    },
+    {
+      "title": "GitHub",
+      "url": "https://github.com/koljapluemer/map-practice"
+    },
+    {
+      "title": "Reddit Thread",
+      "url": "https://old.reddit.com/r/geography/comments/15p4czd/i_made_a_little_free_web_game_to_get_better_at/"
+    },
+    {
+      "title": "HN discussion",
+      "url": "https://news.ycombinator.com/item?id=36913829#36913921"
+    }
+  ]
+}

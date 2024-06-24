@@ -1,8 +1,10 @@
 # World Map Practice
 
-![Screenshot of the app](./screenshot.png)
+![Project Image](/doc/img/project.png)
 
-This is a little tool I built to get better at [this GeoGuessr challenge](https://www.geoguessr.com/vgp/3355).
+
+
+This is a little tool I originally built to get better at [this GeoGuessr challenge](https://www.geoguessr.com/vgp/3355). It employs a custom intra-session Spaced Repetition algorithms and explores some gamification ideas.
 
 **Check it out [here](https://learn-worldmap.netlify.app/)** (free, no signup, no download)
 
