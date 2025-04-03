@@ -550,3 +550,17 @@ button:hover {
   align-items: center;
   gap: 8px;
 }
+
+#info-new-version {
+  background-color: #ffa500;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  display: block;
+  margin: 0;
+}
+
+#info-new-version a {
+  color: #333;
+  text-decoration: underline;
+}
