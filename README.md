@@ -2,13 +2,14 @@
 
 ![Project Image](/doc/img/project.png)
 
-
+> [!NOTE]  
+> I will not develop this project further. **There is now a [much better version](https://map.koljapluemer.com)**, also [on github](https://github.com/koljapluemer/learn-worldmap)**. The [game itself](https://learn-worldmap.netlify.app/) itself will stay available for the foreseeable future.
 
 This is a little tool I originally built to get better at [this GeoGuessr challenge](https://www.geoguessr.com/vgp/3355). It employs a custom intra-session Spaced Repetition algorithms and explores some gamification ideas.
 
 Check it out [here](https://learn-worldmap.netlify.app/) (free, no signup, no download)
 
-**There is now a [much better version](https://map.koljapluemer.com)**, also [on github](https://github.com/koljapluemer/learn-worldmap).
+
 
 ## Idea
 
